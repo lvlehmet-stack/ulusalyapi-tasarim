@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ürün Evreni — Revize Seçim Sayfası</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f8fc;--surface:#fff;--line:rgba(22,36,60,.12);--text:#16243c;--muted:#53627e;--accent:#2b62c4;--accent2:#1d4fa8;--red:#d0242b;--grad:linear-gradient(96deg,#4b84e0,#2b62c4)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.7;padding:clamp(30px,6vh,70px) clamp(18px,5vw,70px)}
+h1,h3{font-family:'Syne',sans-serif}
+.wrap{max-width:980px;margin:0 auto}
+.kicker{font-size:12px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--accent2)}
+h1{font-size:clamp(26px,4vw,42px);margin:10px 0 8px}
+h1 em{font-style:normal;color:var(--accent2)}
+.sub{color:var(--muted);max-width:640px;font-size:15px;margin-bottom:36px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+a.card{
+  display:block;padding:24px 26px;border-radius:12px;background:var(--surface);
+  border:1px solid var(--line);text-decoration:none;color:inherit;position:relative;overflow:hidden;
+  box-shadow:0 10px 28px rgba(22,36,60,.07);
+  transition:transform .3s,box-shadow .3s,border-color .3s;
+}
+a.card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#4b84e0,#2b62c4 72%,var(--red))}
+a.card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(22,36,60,.13);border-color:rgba(43,98,196,.4)}
+.tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--grad);padding:4px 12px;border-radius:99px;margin-bottom:12px}
+.tag.alt{background:var(--text)}
+h3{font-size:18px;margin-bottom:6px}
+.card p{font-size:13.5px;color:var(--muted)}
+.note{margin-top:34px;padding:18px 22px;border:1px solid rgba(43,98,196,.25);border-radius:10px;background:rgba(43,98,196,.05);font-size:13.5px;color:#3d4f6e}
+.note b{color:var(--accent2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="kicker">Ulusal Yapı · Ürün Evreni</span>
+  <h1>Ürün Bölümü <em>Revize Seçenekleri</em></h1>
+  <p class="sub">Aynı içerik, beş farklı sunum. Her kartı açıp inceleyin; beğendiğiniz stil Tasarım 6'nın ürünler bölümüne işlenecek.</p>
+  <div class="cards" style="margin-bottom:36px">
+    <a class="card" href="tasarim7-final.html" style="border-color:rgba(208,36,43,.45)">
+      <span class="tag" style="background:linear-gradient(96deg,#d0242b,#a01b20)">★ FİNAL</span>
+      <h3>Tasarım 7 — Final Montaj</h3>
+      <p>T5 menüsü + Revize 5 fütüristik açılış (dünya haritalı) + T3 kurumsal/politikalar/galeri + T6 global-iletişim + T3 footer. Gerçek logo, kraliyet mavisi + kırmızı.</p>
+    </a>
+    <a class="card" href="tasarim7final-kirmizi-vurgulu.html" style="border-color:rgba(208,36,43,.45)">
+      <span class="tag" style="background:linear-gradient(96deg,#d0242b,#a01b20)">★ FİNAL · 7B</span>
+      <h3>Tasarım 7B — Kırmızı Vurgulu</h3>
+      <p>7 ile birebir aynı yapı; logodaki kırmızı ana vurgu rengi: serif başlıklar, butonlar, rozetler, halkalar ve CTA kırmızıda.</p>
+    </a>
+  </div>
+  <div class="cards">
+    <a class="card" href="tasarim6-kraliyet-editoryal.html">
+      <span class="tag">Mevcut · Tam Sayfa</span>
+      <h3>Tasarım 6 — Küre (Güncel)</h3>
+      <p>Görselli kutucuklar, ortada logo, yan panel. Tam site içinde görüntülenir.</p>
+    </a>
+    <a class="card" href="urun-evreni-A-geometrik.html">
+      <span class="tag alt">Seçenek A</span>
+      <h3>Geometrik</h3>
+      <p>Altıgen görsel kutuları, dönen çerçeveler, keskin çizgiler ve kırmızı elmas detaylar.</p>
+    </a>
+    <a class="card" href="urun-evreni-B-tipografik.html">
+      <span class="tag alt">Seçenek B</span>
+      <h3>Sade Tipografik</h3>
+      <p>Tam tersi yaklaşım: görselsiz, dev numaralar ve tipografiyle son derece sade liste.</p>
+    </a>
+    <a class="card" href="urun-evreni-C-3d-efektli.html">
+      <span class="tag alt">Seçenek C</span>
+      <h3>3D Efektli</h3>
+      <p>Fareyle birlikte eğilen 3D kart sahnesi, yüzen logo diski, cam panel ve ışıltı efektleri.</p>
+    </a>
+    <a class="card" href="urun-evreni-D-panoramik.html">
+      <span class="tag alt">Seçenek D</span>
+      <h3>Panoramik Kolonlar</h3>
+      <p>Üzerine gelince genişleyen tam genişlik görsel kolonlar; ürün listesi altta iki sütun.</p>
+    </a>
+  </div>
+  <h1 style="margin-top:44px;font-size:clamp(22px,3vw,32px)">3D Efektli Üzerine <em>5 Revize</em></h1>
+  <p class="sub">Seçenek C beğenildi; sağdaki panel ve kart boyutları hepsinde birebir aynı, sol sahne beş farklı yorumla yeniden tasarlandı.</p>
+  <div class="cards">
+    <a class="card" href="urun-evreni-C1-baglantili-kume.html">
+      <span class="tag">Revize 1</span>
+      <h3>Bağlantılı Küme</h3>
+      <p>İç içe geçme yok: kartlar merkezden uzaklaştırıldı, logoya hareketli hatlarla bağlandı.</p>
+    </a>
+    <a class="card" href="urun-evreni-C2-3d-vitrin.html">
+      <span class="tag">Revize 2</span>
+      <h3>3D Vitrin</h3>
+      <p>Bambaşka yerleşim: basamaklı çapraz kaskad; her kart kendi derinliğinde süzülür, üzerine gelen düzleşip öne çıkar.</p>
+    </a>
+    <a class="card" href="urun-evreni-C3-klasik-renklenen.html">
+      <span class="tag">Revize 3</span>
+      <h3>Klasik Renklenen</h3>
+      <p>Kartlar normalde siyah-beyaz; üzerine gelince renklenir, hafif büyüyüp öne süzülür ve bağlantısı çizilir.</p>
+    </a>
+    <a class="card" href="urun-evreni-C4-uzay-temali.html">
+      <span class="tag">Revize 4</span>
+      <h3>Uzay Temalı</h3>
+      <p>3'ün efektleri + dozunda uzay: yıldızlı koyu sahne, gezegen-logo, yörüngede kırmızı uydu, takımyıldız hatları.</p>
+    </a>
+    <a class="card" href="urun-evreni-C5-futuristik.html">
+      <span class="tag">Revize 5</span>
+      <h3>Fütüristik · Fable Yorumu</h3>
+      <p>Holografik halkalar, karta akan veri sinyalleri, HUD köşe çerçeveleri, tarama ışığı ve imleci takip eden ışıma.</p>
+    </a>
+  </div>
+  <div class="note"><b>Not:</b> Bu sayfa ve seçenek dosyaları karar vermek içindir. Seçtiğiniz stil, ana tasarıma (Tasarım 6) aktarılacak; isterseniz iki stilin karışımı da yapılabilir.</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ulusal Yapı — Tasarım 6 · Kraliyet Editoryal</title>
+<meta name="description" content="Ulusal Yapı; yapı malzemeleri, kimyasal hammaddeler, perlit ve teknoloji çözümleriyle 4 ülkede yapı sektörünün çözüm ortağı.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* ===== TEMA: Kraliyet Mavisi (açık) + logo kırmızısı ===== */
+  --bg:#f5f8fc;
+  --bg2:#edf2f9;
+  --surface:#ffffff;
+  --surface2:#f3f7fc;
+  --line:rgba(22,36,60,.12);
+  --text:#16243c;
+  --muted:#53627e;
+  --accent:#2b62c4;
+  --accent2:#1d4fa8;      /* koyu vurgu: başlık em, linkler */
+  --ice:#1d4fa8;          /* sayılar ve çizgi buton metni */
+  --red:#d0242b;          /* logodaki kırmızı — ince dokunuşlar */
+  --grad:linear-gradient(96deg,#4b84e0 0%,#2b62c4 100%);
+  --on-accent:#ffffff;
+  --sidebar:264px;
+  --radius:6px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  font-weight:300;
+  line-height:1.75;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:'Syne',sans-serif;line-height:1.08;font-weight:700;letter-spacing:-.01em}
+::selection{background:rgba(43,98,196,.22)}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#c3d2e8;border-radius:99px}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+button{font-family:inherit}
+
+/* =========================================================
+   GÖRSEL ALANLARI
+   .ph        → kutu içi görsel: içine <img src="foto.jpg"> koyun
+   .ph-bg     → bölüm arka planı: içine <img src="foto.jpg"> koyun
+   .brand     → marka logosu: içine <img src="logo.png"> koyun
+   ========================================================= */
+.ph{
+  position:relative;overflow:hidden;border-radius:var(--radius);
+  background:linear-gradient(135deg,#e9eff9,#f4f8fd);
+  border:1px dashed rgba(43,98,196,.35);
+  display:grid;place-items:center;
+}
+.ph::before{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(45deg,transparent 0 26px,rgba(43,98,196,.05) 26px 27px);
+}
+.ph .ph-in{position:relative;text-align:center;color:#8194b3;padding:14px}
+.ph .ph-in svg{opacity:.8;margin-bottom:8px}
+.ph .ph-in b{display:block;font-size:11px;letter-spacing:.24em;font-weight:600}
+.ph .ph-in small{font-size:10.5px;opacity:.75;letter-spacing:.05em}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2}
+.ph-bg{position:absolute;inset:0;overflow:hidden;border-radius:0;border:0;background:linear-gradient(135deg,#e6edf8,#f2f6fc)}
+.ph-bg::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent 0 34px,rgba(43,98,196,.04) 34px 35px)}
+.ph-bg .ph-in{position:absolute;top:18px;right:18px;text-align:right;color:#8ea0be;z-index:1}
+.ph-bg .ph-in b{display:block;font-size:10.5px;letter-spacing:.22em;font-weight:600}
+.ph-bg .ph-in small{font-size:10px;opacity:.75}
+.ph-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.veil{position:absolute;inset:0;z-index:2;background:linear-gradient(100deg,rgba(245,248,252,.96) 25%,rgba(245,248,252,.6) 65%,rgba(245,248,252,.85))}
+
+/* ---------- Sol sabit menü ---------- */
+aside{
+  position:fixed;top:0;left:0;bottom:0;width:var(--sidebar);z-index:900;
+  display:flex;flex-direction:column;
+  background:var(--surface);border-right:1px solid var(--line);
+  padding:34px 30px;
+}
+.s-logo{display:flex;align-items:center}
+.s-logo img{width:100%;max-width:172px;height:auto;display:block}
+.s-nav{margin-top:52px;display:flex;flex-direction:column;gap:2px;flex:1}
+.s-nav a{
+  position:relative;display:flex;align-items:center;gap:14px;
+  padding:13px 2px;font-size:13.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid transparent;transition:color .3s,padding-left .35s;
+}
+.s-nav a i{font-style:normal;font-family:'Syne',sans-serif;font-size:11px;color:#97a9c6;transition:color .3s}
+.s-nav a::after{
+  content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;
+  background:linear-gradient(90deg,var(--accent) 0,transparent 70%);
+  transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.7,.3,1);
+}
+.s-nav a:hover,.s-nav a.active{color:var(--text);padding-left:8px}
+.s-nav a:hover i,.s-nav a.active i{color:var(--accent2)}
+.s-nav a:hover::after,.s-nav a.active::after{transform:scaleX(1)}
+.s-foot{font-size:12.5px;color:var(--muted);display:grid;gap:6px}
+.s-foot a{transition:color .3s}
+.s-foot a:hover{color:var(--accent2)}
+.s-foot .cta{
+  margin-top:14px;display:flex;align-items:center;justify-content:center;gap:9px;
+  padding:13px 18px;border:1px solid rgba(43,98,196,.4);border-radius:var(--radius);
+  font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ice);
+  transition:background .35s,color .35s,border-color .35s;
+}
+.s-foot .cta:hover{background:var(--grad);color:var(--on-accent);border-color:transparent}
+
+/* Mobil üst bar */
+.topbar{
+  display:none;position:fixed;top:0;left:0;right:0;z-index:950;
+  align-items:center;justify-content:space-between;
+  padding:12px 20px;background:rgba(245,248,252,.94);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.topbar .s-logo img{max-width:128px}
+#hamburger{display:none;background:none;border:0;cursor:pointer;z-index:990;width:40px;height:40px;position:relative}
+#hamburger i{position:absolute;left:8px;right:8px;height:2px;background:var(--text);border-radius:2px;transition:.35s}
+#hamburger i:nth-child(1){top:13px}#hamburger i:nth-child(2){top:20px}#hamburger i:nth-child(3){top:27px}
+#hamburger.open i:nth-child(1){top:20px;transform:rotate(45deg)}
+#hamburger.open i:nth-child(2){opacity:0}
+#hamburger.open i:nth-child(3){top:20px;transform:rotate(-45deg)}
+
+/* ---------- İçerik düzeni ---------- */
+main{margin-left:var(--sidebar)}
+section{position:relative;padding:clamp(80px,11vh,130px) clamp(24px,5vw,72px)}
+.wrap{max-width:1120px;margin:0 auto}
+.idx{
+  position:absolute;top:clamp(20px,4vh,44px);right:clamp(20px,4vw,60px);
+  font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(64px,9vw,120px);line-height:1;
+  color:transparent;-webkit-text-stroke:1px rgba(43,98,196,.16);
+  pointer-events:none;user-select:none;
+}
+.sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:14px}
+.sec-no{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--accent2);letter-spacing:.2em}
+.sec-title{font-size:clamp(28px,3.8vw,48px)}
+.sec-title em{font-style:normal;color:var(--accent2)}
+.sec-desc{max-width:620px;color:var(--muted);font-size:15.5px}
+
+.rv{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.2,.7,.3,1),transform .9s cubic-bezier(.2,.7,.3,1)}
+.rv.on{opacity:1;transform:none}
+
+/* keskin köşeli çizgi buton */
+.btn-line{
+  display:inline-flex;align-items:center;gap:12px;
+  padding:15px 28px;border:1px solid rgba(43,98,196,.45);border-radius:var(--radius);
+  font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ice);
+  cursor:pointer;background:none;
+  transition:background .35s,color .35s,border-color .35s,transform .35s;
+}
+.btn-line:hover{background:var(--grad);color:var(--on-accent);border-color:transparent;transform:translateY(-2px)}
+.btn-fill{
+  display:inline-flex;align-items:center;gap:12px;
+  padding:15px 28px;border:0;border-radius:var(--radius);
+  font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--grad);color:var(--on-accent);cursor:pointer;
+  box-shadow:0 14px 34px rgba(43,98,196,.24);
+  transition:transform .35s,box-shadow .35s;
+}
+.btn-fill:hover{transform:translateY(-2px);box-shadow:0 20px 44px rgba(43,98,196,.34)}
+
+/* ---------- Hero ---------- */
+header{
+  position:relative;min-height:100svh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:120px clamp(24px,5vw,72px) clamp(56px,9vh,96px);
+  overflow:hidden;
+}
+header .ph-bg{z-index:0}
+header .veil{z-index:1}
+.hero-in{position:relative;z-index:3;max-width:1120px;margin:0 auto;width:100%}
+.hero-kicker{
+  display:flex;align-items:center;gap:14px;
+  font-size:12px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--accent2);
+  opacity:0;animation:rise .9s .1s cubic-bezier(.2,.7,.3,1) forwards;
+}
+.hero-kicker::before{content:"";width:52px;height:2px;background:var(--red)}
+h1{
+  margin:24px 0 22px;
+  font-size:clamp(40px,6.4vw,86px);font-weight:800;max-width:900px;
+  opacity:0;animation:rise .9s .25s cubic-bezier(.2,.7,.3,1) forwards;
+}
+h1 em{font-style:normal;color:var(--accent2)}
+.hero-sub{
+  max-width:560px;font-size:clamp(14.5px,1.4vw,17px);color:var(--muted);
+  opacity:0;animation:rise .9s .45s cubic-bezier(.2,.7,.3,1) forwards;
+}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:38px;opacity:0;animation:rise .9s .62s cubic-bezier(.2,.7,.3,1) forwards}
+.hero-stats{
+  display:flex;gap:0;flex-wrap:wrap;margin-top:clamp(40px,6vh,64px);
+  border-top:1px solid var(--line);
+  opacity:0;animation:rise .9s .8s cubic-bezier(.2,.7,.3,1) forwards;
+}
+.hstat{
+  flex:1;min-width:150px;padding:22px 26px 0 0;margin-right:26px;
+  border-right:1px solid var(--line);
+}
+.hstat:last-child{border-right:0;margin-right:0}
+.hstat .num{font-family:'Syne',sans-serif;font-size:clamp(28px,3.2vw,44px);font-weight:800;color:var(--ice)}
+.hstat .num i{font-style:normal;color:var(--red);font-size:.6em;vertical-align:.3em}
+.hstat .lbl{font-size:11.5px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase;margin-top:2px}
+
+/* ---------- Ticker ---------- */
+.ticker{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:var(--surface);overflow:hidden;padding:16px 0;position:relative;
+}
+.ticker-track{display:flex;gap:48px;width:max-content;animation:marq 32s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+@keyframes marq{to{transform:translateX(-50%)}}
+.ticker-track span{
+  display:flex;align-items:center;gap:48px;white-space:nowrap;
+  font-family:'Syne',sans-serif;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#8195b5;
+}
+.ticker-track i{font-style:normal;color:var(--red);font-size:9px}
+
+/* ---------- Ürün Evreni (4'lü küre) ---------- */
+#urunler{background:var(--bg2)}
+.hub-layout{display:grid;grid-template-columns:.96fr 1.04fr;gap:clamp(26px,3.5vw,48px);align-items:center;margin-top:48px}
+.wheel{position:relative;aspect-ratio:1;max-width:520px;width:100%;margin:0 auto;user-select:none}
+.wheel-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.wheel-lines line{stroke:rgba(43,98,196,.35);stroke-width:1.3;stroke-dasharray:3 5;animation:dashmove 20s linear infinite}
+@keyframes dashmove{to{stroke-dashoffset:-160}}
+.wheel-lines circle{fill:var(--red)}
+.wheel-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46%;aspect-ratio:1;display:grid;place-items:center}
+.wc-ring{position:absolute;inset:0;border-radius:50%;border:1.5px dashed rgba(43,98,196,.45);animation:spin 18s linear infinite}
+.wc-ring::after{content:"";position:absolute;inset:-12%;border-radius:50%;border:1px solid rgba(43,98,196,.16)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.wc-core{
+  position:relative;width:86%;aspect-ratio:1;border-radius:50%;
+  background:var(--surface);border:1px solid var(--line);
+  display:grid;place-items:center;
+  animation:corepulse 4.5s ease-in-out infinite;
+}
+@keyframes corepulse{
+  0%,100%{box-shadow:0 20px 50px rgba(22,36,60,.14),0 0 0 10px rgba(43,98,196,.07)}
+  50%{box-shadow:0 20px 50px rgba(22,36,60,.14),0 0 0 20px rgba(43,98,196,.03)}
+}
+.wc-core img{width:72%;height:auto;display:block}
+.wheel-node{
+  position:absolute;transform:translate(-50%,-50%);z-index:5;
+  display:flex;align-items:center;gap:11px;
+  padding:9px 16px 9px 9px;border-radius:10px;cursor:pointer;border:1px solid var(--line);
+  background:var(--surface);box-shadow:0 8px 22px rgba(22,36,60,.10);
+  font-size:clamp(11px,1.15vw,13.5px);font-weight:700;color:var(--text);
+  line-height:1.25;text-align:left;max-width:224px;
+  transition:transform .35s cubic-bezier(.2,.7,.3,1),box-shadow .35s,border-color .35s,background .35s,color .35s;
+}
+.wheel-node .n-im{width:54px;height:54px;flex:none;border-radius:8px;overflow:hidden;background:#eef3fa;position:relative}
+.wheel-node .n-im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.wheel-node .n-ic{width:30px;height:30px;flex:none;border-radius:8px;display:grid;place-items:center;background:rgba(43,98,196,.1);color:var(--accent2);transition:background .35s,color .35s}
+.wheel-node .n-ic svg{width:17px;height:17px}
+.wheel-node .n-tx small{display:block;font-weight:500;font-size:10.5px;color:var(--muted);letter-spacing:.03em;transition:color .35s}
+.wheel-node:hover{transform:translate(-50%,-50%) scale(1.07);border-color:rgba(43,98,196,.45);box-shadow:0 14px 32px rgba(22,36,60,.16);z-index:6}
+.wheel-node.active{background:var(--grad);color:var(--on-accent);border-color:transparent;box-shadow:0 16px 36px rgba(43,98,196,.4)}
+.wheel-node.active .n-ic{background:rgba(255,255,255,.2);color:var(--on-accent)}
+.wheel-node.active .n-tx small{color:rgba(255,255,255,.82)}
+
+.panel{
+  position:relative;border-radius:12px;background:var(--surface);border:1px solid var(--line);
+  box-shadow:0 20px 54px rgba(22,36,60,.10);
+  height:min(680px,88vh);display:flex;flex-direction:column;overflow:hidden;
+}
+.panel::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#4b84e0,#2b62c4 72%,var(--red));z-index:3}
+.panel-visual{position:relative;height:148px;flex:none;overflow:hidden;background:#eef3fa;border-bottom:1px solid var(--line)}
+.panel-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s ease}
+.panel-visual img.on{opacity:1}
+.panel-head{display:flex;align-items:center;gap:15px;padding:20px 26px 12px}
+.panel-head .p-ic{width:50px;height:50px;flex:none;border-radius:10px;background:var(--grad);color:var(--on-accent);display:grid;place-items:center}
+.panel-head .p-ic svg{width:25px;height:25px}
+.panel-head h3{font-size:20px;line-height:1.2}
+.panel-head .p-count{font-size:12.5px;color:var(--muted);margin-top:2px}
+.panel-desc{padding:0 26px;font-size:13.5px;color:var(--muted)}
+.panel-body{flex:1;overflow-y:auto;padding:14px 26px 18px;scrollbar-width:thin;scrollbar-color:rgba(43,98,196,.3) transparent}
+.panel-body::-webkit-scrollbar{width:7px}
+.panel-body::-webkit-scrollbar-thumb{background:rgba(43,98,196,.25);border-radius:99px}
+.sub-cat{margin:16px 0 8px;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent2);display:flex;align-items:center;gap:10px}
+.sub-cat:first-child{margin-top:2px}
+.sub-cat::after{content:"";flex:1;height:1px;background:var(--line)}
+.sub-item{border:1px solid var(--line);border-radius:10px;margin-bottom:8px;overflow:hidden;background:var(--surface2);transition:border-color .3s,box-shadow .3s}
+.sub-item:hover{border-color:rgba(43,98,196,.32)}
+.sub-item>button{
+  width:100%;display:flex;align-items:center;gap:11px;padding:12px 15px;background:none;border:0;cursor:pointer;
+  font-size:13.5px;font-weight:600;color:var(--text);text-align:left;
+}
+.sub-item .dot{width:7px;height:7px;flex:none;border-radius:50%;background:var(--red);box-shadow:0 0 0 3px rgba(208,36,43,.14)}
+.sub-item .chev{margin-left:auto;flex:none;transition:transform .35s;color:var(--muted)}
+.sub-item .si-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.2,.7,.3,1)}
+.sub-item.open{border-color:rgba(43,98,196,.45);box-shadow:0 8px 22px rgba(22,36,60,.08)}
+.sub-item.open .chev{transform:rotate(180deg)}
+.sub-item.open .si-body{max-height:220px}
+.sub-item .si-in{padding:0 15px 13px 33px;font-size:13px;color:var(--muted)}
+.sub-item .si-in a{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-weight:700;color:var(--accent2);font-size:12.5px}
+.sub-item .si-in a:hover{text-decoration:underline}
+.panel-foot{padding:15px 26px;border-top:1px solid var(--line);background:var(--surface2)}
+.visit-btn{
+  position:relative;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  padding:14px 22px;border-radius:var(--radius);background:var(--grad);color:var(--on-accent);
+  font-weight:700;font-size:14px;letter-spacing:.04em;overflow:hidden;
+  box-shadow:0 10px 26px rgba(43,98,196,.32);
+  transition:transform .3s,box-shadow .3s;
+}
+.visit-btn:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(43,98,196,.46)}
+.visit-btn::after{
+  content:"";position:absolute;top:0;left:-80%;width:45%;height:100%;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.5),transparent);
+  transform:skewX(-22deg);animation:shine 3.2s ease infinite;
+}
+@keyframes shine{0%{left:-80%}55%,100%{left:130%}}
+.visit-btn svg{transition:transform .3s}
+.visit-btn:hover svg{transform:translateX(4px)}
+.panel-fade .panel-head,.panel-fade .panel-desc,.panel-fade .panel-body{animation:panelin .45s cubic-bezier(.2,.7,.3,1)}
+@keyframes panelin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ---------- Kurumsal ---------- */
+.about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(36px,5vw,72px);margin-top:44px;align-items:start}
+.about-visual{position:relative}
+.about-visual .ph{aspect-ratio:4/5}
+.about-visual .chip{
+  position:absolute;left:-16px;bottom:28px;z-index:3;
+  padding:16px 22px;border-radius:var(--radius);
+  background:var(--grad);color:var(--on-accent);
+  font-family:'Syne',sans-serif;
+  box-shadow:0 18px 44px rgba(43,98,196,.3);
+}
+.chip b{font-size:26px;font-weight:800;display:block;line-height:1.1}
+.chip small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;opacity:.85}
+.about-copy .lead{
+  font-family:'Syne',sans-serif;font-size:clamp(19px,2.1vw,25px);font-weight:600;line-height:1.5;margin-bottom:20px;
+}
+.about-copy .lead em{font-style:normal;color:var(--accent2)}
+.about-copy p{color:var(--muted);font-size:15px;margin-bottom:16px}
+.alist{margin:26px 0 8px;border-top:1px solid var(--line)}
+.alist div{
+  display:flex;align-items:center;gap:16px;padding:14px 2px;
+  border-bottom:1px solid var(--line);font-size:14px;color:#3d4f6e;
+  transition:padding-left .35s;
+}
+.alist div:hover{padding-left:10px}
+.alist i{font-style:normal;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--accent2)}
+
+/* ---------- Galeri: yatay kaydırma ---------- */
+#galeri{background:var(--bg2)}
+.strip{
+  display:flex;gap:18px;margin-top:48px;overflow-x:auto;padding-bottom:18px;
+  scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#b9c8e0 transparent;
+}
+.strip::-webkit-scrollbar{height:8px}
+.strip::-webkit-scrollbar-thumb{background:#c3d2e8;border-radius:99px}
+.strip figure{flex:none;width:clamp(230px,26vw,320px);scroll-snap-align:start}
+.strip .ph{aspect-ratio:3/4;transition:transform .5s cubic-bezier(.2,.7,.3,1)}
+.strip figure:hover .ph{transform:translateY(-8px)}
+.strip figcaption{margin-top:12px;display:flex;align-items:baseline;gap:10px}
+.strip figcaption i{font-style:normal;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--accent2)}
+.strip figcaption b{font-size:14px;font-weight:600;display:block}
+.strip figcaption small{display:block;font-size:12px;color:var(--muted)}
+.strip-hint{margin-top:6px;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:#97a9c6;display:flex;align-items:center;gap:10px}
+.strip-hint::after{content:"";flex:0 0 44px;height:1px;background:#97a9c6;animation:hintmove 2s ease infinite}
+@keyframes hintmove{0%,100%{transform:translateX(0)}50%{transform:translateX(10px)}}
+
+/* ---------- Global ---------- */
+.geo-list{margin-top:44px;border-top:1px solid var(--line)}
+.geo-row{
+  display:grid;grid-template-columns:52px 1.1fr auto 1.6fr;align-items:center;gap:18px;
+  padding:20px 4px;border-bottom:1px solid var(--line);
+  transition:padding-left .35s,background .35s;
+}
+.geo-row:hover{padding-left:12px;background:rgba(43,98,196,.04)}
+.geo-flag{font-size:26px}
+.geo-city{font-family:'Syne',sans-serif;font-size:17px;font-weight:700}
+.geo-tag{
+  font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  padding:6px 12px;border:1px solid rgba(43,98,196,.35);border-radius:var(--radius);color:var(--accent2);
+  white-space:nowrap;
+}
+.geo-adr{font-size:13px;color:var(--muted)}
+.export-line{
+  margin-top:34px;padding:22px 26px;border:1px solid rgba(43,98,196,.25);border-radius:var(--radius);
+  background:rgba(43,98,196,.05);
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap;font-size:14px;color:#3d4f6e;
+}
+.export-line b{color:var(--accent2)}
+.export-line .ic{width:40px;height:40px;flex:none;border-radius:var(--radius);background:var(--grad);display:grid;place-items:center;color:var(--on-accent)}
+
+/* ---------- Markalar ---------- */
+.brand-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:44px}
+.brand{
+  aspect-ratio:2.5;border-radius:var(--radius);display:grid;place-items:center;
+  background:var(--surface);border:1px dashed rgba(43,98,196,.3);
+  color:#8a9ab6;font-family:'Syne',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-align:center;line-height:1.5;
+  transition:border-color .35s,color .35s,transform .4s,box-shadow .35s;
+  padding:8px;
+}
+.brand:hover{border-color:rgba(43,98,196,.55);color:var(--accent2);transform:translateY(-4px);box-shadow:0 12px 28px rgba(22,36,60,.08)}
+.brand img{max-height:56%;max-width:70%;object-fit:contain}
+
+/* ---------- CTA ---------- */
+.cta{
+  position:relative;margin:0 clamp(24px,5vw,72px);border-radius:12px;overflow:hidden;
+  text-align:center;padding:clamp(56px,9vw,100px) clamp(28px,6vw,80px);
+}
+.cta .veil{background:linear-gradient(100deg,rgba(13,26,48,.92),rgba(28,66,140,.8))}
+.cta .in{position:relative;z-index:3}
+.cta h2{font-size:clamp(26px,3.6vw,44px);font-weight:800;margin-bottom:14px;color:#fff}
+.cta h2 em{font-style:normal;color:#9dbdf2}
+.cta p{color:rgba(235,242,252,.78);max-width:540px;margin:0 auto 32px;font-size:15px}
+
+/* ---------- İletişim ---------- */
+.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(32px,4.5vw,60px);margin-top:48px;align-items:start}
+.c-list{border-top:1px solid var(--line)}
+.c-row{
+  display:flex;gap:18px;padding:20px 2px;border-bottom:1px solid var(--line);
+  transition:padding-left .35s;
+}
+.c-row:hover{padding-left:10px}
+.c-row .ic{width:44px;height:44px;flex:none;border-radius:var(--radius);display:grid;place-items:center;border:1px solid rgba(43,98,196,.3);color:var(--accent2)}
+.c-row h4{font-size:14px;margin-bottom:3px;letter-spacing:.04em}
+.c-row p,.c-row a{font-size:13.5px;color:var(--muted);display:block;transition:color .3s}
+.c-row a:hover{color:var(--accent2)}
+.form-card{
+  padding:clamp(26px,3.2vw,40px);border-radius:12px;
+  background:var(--surface);border:1px solid var(--line);
+  box-shadow:0 20px 54px rgba(22,36,60,.08);
+  position:relative;overflow:hidden;
+}
+.form-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#4b84e0,#2b62c4 72%,var(--red))}
+.form-card h3{font-size:21px;margin-bottom:6px}
+.form-card >p{color:var(--muted);font-size:13.5px;margin-bottom:24px}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.f-group{margin-bottom:14px}
+.f-group label{display:block;font-size:11.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.f-group input,.f-group textarea{
+  width:100%;padding:13px 16px;border-radius:var(--radius);font-family:'Inter',sans-serif;font-size:14px;color:var(--text);
+  background:var(--bg2);border:1px solid var(--line);outline:0;transition:border-color .35s,box-shadow .35s;resize:vertical;
+}
+.f-group input:focus,.f-group textarea:focus{border-color:rgba(43,98,196,.6);box-shadow:0 0 0 4px rgba(43,98,196,.1)}
+.form-card .btn-fill{width:100%;justify-content:center;margin-top:4px}
+
+/* ---------- Footer ---------- */
+footer{border-top:1px solid var(--line);padding:44px clamp(24px,5vw,72px);background:var(--surface)}
+.foot{
+  max-width:1120px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;
+  font-size:13px;color:var(--muted);
+}
+.foot img{height:36px;width:auto;display:block}
+#toTop{
+  position:fixed;bottom:24px;right:24px;z-index:800;width:46px;height:46px;border-radius:var(--radius);border:1px solid rgba(43,98,196,.4);cursor:pointer;
+  background:rgba(255,255,255,.92);color:var(--ice);font-size:18px;display:grid;place-items:center;backdrop-filter:blur(8px);
+  box-shadow:0 10px 26px rgba(22,36,60,.12);
+  opacity:0;visibility:hidden;transform:translateY(14px);
+  transition:opacity .4s,visibility .4s,transform .4s,background .35s,color .35s;
+}
+#toTop.show{opacity:1;visibility:visible;transform:none}
+#toTop:hover{background:var(--grad);color:var(--on-accent);border-color:transparent}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1080px){
+  aside{display:none}
+  main{margin-left:0}
+  .topbar{display:flex}
+  #hamburger{display:block}
+  body.menu-open aside{
+    display:flex;width:100%;z-index:970;padding-top:90px;
+  }
+  .brand-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:980px){
+  .hub-layout{grid-template-columns:1fr}
+  .wheel{max-width:470px}
+  .panel{height:auto;max-height:76vh;min-height:440px}
+}
+@media(max-width:840px){
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .about-visual{max-width:440px}
+  .geo-row{grid-template-columns:44px 1fr auto}
+  .geo-adr{grid-column:2/-1}
+  .f-row{grid-template-columns:1fr}
+  .hstat{min-width:40%;border-right:0}
+}
+@media(max-width:560px){
+  .brand-grid{grid-template-columns:repeat(2,1fr)}
+  .wheel{max-width:360px}
+  .wheel-node{padding:5px 10px 5px 5px;gap:8px;max-width:160px}
+  .wheel-node .n-im{width:38px;height:38px}
+  .wheel-node .n-tx small{display:none}
+  .panel-visual{height:110px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- Mobil üst bar -->
+<div class="topbar">
+  <a class="s-logo" href="#top"><img src="Gorseller/logo.png" alt="Ulusal Yapı"></a>
+  <button id="hamburger" aria-label="Menü"><i></i><i></i><i></i></button>
+</div>
+
+<!-- Sol sabit menü -->
+<aside id="sidebar">
+  <a class="s-logo" href="#top"><img src="Gorseller/logo.png" alt="Ulusal Yapı"></a>
+  <nav class="s-nav" id="sNav">
+    <a href="#top" class="active"><i>01</i> Anasayfa</a>
+    <a href="#urunler"><i>02</i> Ürünler</a>
+    <a href="#kurumsal"><i>03</i> Kurumsal</a>
+    <a href="#galeri"><i>04</i> Operasyon</a>
+    <a href="#global"><i>05</i> Global Ağ</a>
+    <a href="#iletisim"><i>06</i> İletişim</a>
+  </nav>
+  <div class="s-foot">
+    <a href="tel:+902164558663">+90 216 455 86 63</a>
+    <a href="mailto:info@ulusalyapi.com">info@ulusalyapi.com</a>
+    <a class="cta" href="#iletisim">Teklif Alın</a>
+  </div>
+</aside>
+
+<main>
+
+<!-- Hero -->
+<header id="top">
+  <div class="ph-bg">
+    <!-- ARKA PLAN GÖRSELİ: buraya <img src="hero-arkaplan.jpg" alt=""> ekleyin (geniş şantiye / liman / vinç fotoğrafı önerilir) -->
+    <div class="ph-in"><b>HERO ARKA PLAN GÖRSELİ</b><small>Önerilen: 2000 × 1200</small></div>
+  </div>
+  <div class="veil"></div>
+  <div class="hero-in">
+    <div class="hero-kicker">İthalat · İhracat · Dağıtım</div>
+    <h1>Yapı Sektöründe<br><em>Çözüm Ortağınız</em></h1>
+    <p class="hero-sub">
+      Lider üreticilerden tedarik ettiğimiz hammadde ve inşaat malzemelerini, kendi lojistik
+      ağımızla iç piyasaya; Avrupa'dan Ortadoğu'ya uzanan hattımızla dünyaya ulaştırıyoruz.
+    </p>
+    <div class="hero-actions">
+      <a href="#urunler" class="btn-fill">Ürünleri Keşfedin
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#iletisim" class="btn-line">Teklif Alın</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="num"><span class="count" data-to="4">0</span></div><div class="lbl">Ana Grup</div></div>
+      <div class="hstat"><div class="num"><span class="count" data-to="80">0</span><i>+</i></div><div class="lbl">Alt Ürün</div></div>
+      <div class="hstat"><div class="num"><span class="count" data-to="4">0</span></div><div class="lbl">Ülkede Varlık</div></div>
+      <div class="hstat"><div class="num"><span class="count" data-to="4">0</span></div><div class="lbl">İhracat Bölgesi</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- Ticker -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Yapı Malzemeleri <i>◆</i> Kimyasal Hammaddeler <i>◆</i> Perlit <i>◆</i> Teknoloji ve Yazılım <i>◆</i> Yapı Malzemeleri <i>◆</i> Kimyasal Hammaddeler <i>◆</i> Perlit <i>◆</i> Teknoloji ve Yazılım <i>◆</i></span>
+    <span>Yapı Malzemeleri <i>◆</i> Kimyasal Hammaddeler <i>◆</i> Perlit <i>◆</i> Teknoloji ve Yazılım <i>◆</i> Yapı Malzemeleri <i>◆</i> Kimyasal Hammaddeler <i>◆</i> Perlit <i>◆</i> Teknoloji ve Yazılım <i>◆</i></span>
+  </div>
+</div>
+
+<!-- Ürünler: 4'lü interaktif küre (ilk sırada) -->
+<section id="urunler">
+  <span class="idx">02</span>
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-head"><span class="sec-no">02</span><h2 class="sec-title">Dört Ana Grupta <em>Ürün Evreni</em></h2></div>
+      <p class="sec-desc">Gruplardan birinin üzerine gelin ya da dokunun; alt ürünler ve açıklamaları yandaki panelde açılır. Her gruptan ilgili web sitemize tek tıkla ulaşabilirsiniz.</p>
+    </div>
+    <div class="hub-layout rv">
+      <div class="wheel" id="wheel">
+        <svg class="wheel-lines" id="wheelLines" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+        <div class="wheel-center">
+          <div class="wc-ring"></div>
+          <div class="wc-core"><img src="Gorseller/logo.png" alt="Ulusal Yapı"></div>
+        </div>
+      </div>
+      <div class="panel" id="panel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Kurumsal -->
+<section id="kurumsal">
+  <span class="idx">03</span>
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-head"><span class="sec-no">03</span><h2 class="sec-title">Tedarikten Teslimata <em>Güvenilir Ticaret</em></h2></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-visual rv">
+        <div class="ph">
+          <!-- GÖRSEL: buraya <img src="kurumsal.jpg" alt=""> ekleyin (tesis / depo / ekip fotoğrafı) -->
+          <div class="ph-in">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <b>KURUMSAL GÖRSEL</b>
+            <small>Önerilen: 900 × 1125</small>
+          </div>
+        </div>
+        <div class="chip"><b>4</b><small>Ülkede Varlık</small></div>
+      </div>
+      <div class="about-copy rv" style="transition-delay:.12s">
+        <p class="lead">
+          <em>Ulusal Yapı</em>, sektörün lider üreticilerinden tedarik ettiği hammadde ve
+          inşaat malzemelerini 4 ülkedeki yapılanmasıyla müşterileriyle buluşturur.
+        </p>
+        <p>
+          Çin'deki irtibat ofisi vasıtasıyla ithalat; Avrupa, Kuzey Afrika, Ortadoğu ve Türk
+          cumhuriyetlerine uzanan ağıyla ihracat faaliyetlerini sürdürür. Kendi lojistik ağı
+          ve bayileri aracılığıyla iç piyasaya hizmet verir.
+        </p>
+        <div class="alist">
+          <div><i>01</i> Lider üreticilerden birinci sınıf hammadde tedariki</div>
+          <div><i>02</i> Kendi lojistik ağı ve yaygın bayi teşkilatı</div>
+          <div><i>03</i> 4 ülkede ofis, 4 bölgeye ihracat operasyonu</div>
+          <div><i>04</i> Kalite, çevre ve iş güvenliği politikalarına tam uyum</div>
+        </div>
+        <a href="#iletisim" class="btn-line" style="margin-top:22px">Bizimle Çalışın
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Operasyon / Galeri -->
+<section id="galeri">
+  <span class="idx">04</span>
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-head"><span class="sec-no">04</span><h2 class="sec-title">Sahadan <em>Operasyon</em></h2></div>
+      <p class="sec-desc">Depo, lojistik ve saha fotoğraflarınız bu şeride gelecek. Şerit yana kaydırılabilir.</p>
+    </div>
+    <div class="strip rv">
+      <figure>
+        <div class="ph"><!-- GÖRSEL: <img src="depo.jpg" alt=""> -->
+          <div class="ph-in"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><b>GÖRSEL</b><small>750 × 1000</small></div>
+        </div>
+        <figcaption><i>01</i><span><b>Depo & Stok</b><small>Çayırova / Kocaeli</small></span></figcaption>
+      </figure>
+      <figure>
+        <div class="ph"><!-- GÖRSEL: <img src="lojistik.jpg" alt=""> -->
+          <div class="ph-in"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><b>GÖRSEL</b><small>750 × 1000</small></div>
+        </div>
+        <figcaption><i>02</i><span><b>Lojistik Filosu</b><small>Kendi araçlarımızla sevkiyat</small></span></figcaption>
+      </figure>
+      <figure>
+        <div class="ph"><!-- GÖRSEL: <img src="yukleme.jpg" alt=""> -->
+          <div class="ph-in"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><b>GÖRSEL</b><small>750 × 1000</small></div>
+        </div>
+        <figcaption><i>03</i><span><b>Yükleme & Sevkiyat</b><small>İhracat operasyonu</small></span></figcaption>
+      </figure>
+      <figure>
+        <div class="ph"><!-- GÖRSEL: <img src="saha.jpg" alt=""> -->
+          <div class="ph-in"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><b>GÖRSEL</b><small>750 × 1000</small></div>
+        </div>
+        <figcaption><i>04</i><span><b>Saha Teslimatı</b><small>Projeye zamanında teslim</small></span></figcaption>
+      </figure>
+      <figure>
+        <div class="ph"><!-- GÖRSEL: <img src="uretim.jpg" alt=""> -->
+          <div class="ph-in"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><b>GÖRSEL</b><small>750 × 1000</small></div>
+        </div>
+        <figcaption><i>05</i><span><b>Tedarik Zinciri</b><small>Üretici iş birlikleri</small></span></figcaption>
+      </figure>
+    </div>
+    <div class="strip-hint rv">Kaydırın</div>
+  </div>
+</section>
+
+<!-- Global -->
+<section id="global">
+  <span class="idx">05</span>
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-head"><span class="sec-no">05</span><h2 class="sec-title">Global <em>Ağ</em></h2></div>
+      <p class="sec-desc">Türkiye'deki merkez, şube ve depomuzun yanı sıra Katar, Arnavutluk ve Çin'deki yapılanmamız.</p>
+    </div>
+    <div class="geo-list rv">
+      <div class="geo-row"><span class="geo-flag">🇹🇷</span><span class="geo-city">Büyükçekmece / İstanbul</span><span class="geo-tag">Genel Merkez</span><span class="geo-adr">Mimarsinan Merkez Mah., Amaç Sok. No:5/1, 34535</span></div>
+      <div class="geo-row"><span class="geo-flag">🇹🇷</span><span class="geo-city">Ataşehir / İstanbul</span><span class="geo-tag">Şube</span><span class="geo-adr">Atatürk Mah., Turgut Özal Bulvarı 42/A, Ada Gardenya 7/1 Plaza K:6 D:42</span></div>
+      <div class="geo-row"><span class="geo-flag">🇹🇷</span><span class="geo-city">Çayırova / Kocaeli</span><span class="geo-tag">Depo</span><span class="geo-adr">Turgut Özal Cad. No:58, Şekerpınar, Çayırova / İzmit</span></div>
+      <div class="geo-row"><span class="geo-flag">🇶🇦</span><span class="geo-city">Doha / Katar</span><span class="geo-tag">Uluslararası</span><span class="geo-adr">Al Sadd Area 38, Suhaim Bin Hamad St. 231, Building 95</span></div>
+      <div class="geo-row"><span class="geo-flag">🇦🇱</span><span class="geo-city">Durres / Arnavutluk</span><span class="geo-tag">Uluslararası</span><span class="geo-adr">Kapitenerija e Portit L No:5, Rruga Tregtare</span></div>
+      <div class="geo-row"><span class="geo-flag">🇨🇳</span><span class="geo-city">Çin</span><span class="geo-tag">İrtibat Ofisi</span><span class="geo-adr">İthalat operasyonlarını yöneten irtibat ofisi</span></div>
+    </div>
+    <div class="export-line rv">
+      <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+      <span><b>İhracat bölgelerimiz:</b> Avrupa · Kuzey Afrika · Ortadoğu · Türk Cumhuriyetleri</span>
+    </div>
+
+    <div class="rv" style="margin-top:70px">
+      <div class="sec-head"><span class="sec-no">◆</span><h3 class="sec-title" style="font-size:clamp(20px,2.4vw,28px)">Çözüm <em>Ortaklarımız</em></h3></div>
+    </div>
+    <div class="brand-grid rv">
+      <!-- LOGO eklemek için kutunun içine <img src="marka1.png" alt=""> koyun (açık zemin: renkli/orijinal logo kullanın) -->
+      <div class="brand">LOGO 1</div>
+      <div class="brand">LOGO 2</div>
+      <div class="brand">LOGO 3</div>
+      <div class="brand">LOGO 4</div>
+      <div class="brand">LOGO 5</div>
+      <div class="brand">LOGO 6</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta rv">
+  <div class="ph-bg">
+    <!-- ARKA PLAN GÖRSELİ: buraya <img src="cta-arkaplan.jpg" alt=""> ekleyin (geniş vinç / silüet / gün batımı) -->
+    <div class="ph-in"><b>CTA ARKA PLAN GÖRSELİ</b><small>Önerilen: 1920 × 700</small></div>
+  </div>
+  <div class="veil"></div>
+  <div class="in">
+    <h2>Projeniz İçin <em>Doğru Malzeme</em>, Doğru Zamanda</h2>
+    <p>Ürün ve hizmetlerimizle ilgili detaylı görüşmek için bizimle iletişime geçin; size en uygun çözümü birlikte planlayalım.</p>
+    <a href="#iletisim" class="btn-fill">Hemen İletişime Geçin
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- İletişim -->
+<section id="iletisim">
+  <span class="idx">06</span>
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-head"><span class="sec-no">06</span><h2 class="sec-title">Bir Telefon Kadar <em>Yakınız</em></h2></div>
+    </div>
+    <div class="contact-grid">
+      <div class="c-list rv">
+        <div class="c-row">
+          <div class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div><h4>Telefon</h4><a href="tel:+902164558663">+90 216 455 86 63</a><a href="tel:+902164558835">+90 216 455 88 35</a></div>
+        </div>
+        <div class="c-row">
+          <div class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></div>
+          <div><h4>E-Posta</h4><a href="mailto:info@ulusalyapi.com">info@ulusalyapi.com</a></div>
+        </div>
+        <div class="c-row">
+          <div class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><h4>Genel Merkez</h4><p>Mimarsinan Merkez Mah., Amaç Sok. No:5/1<br>34535 Büyükçekmece / İstanbul</p></div>
+        </div>
+        <div class="c-row">
+          <div class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <div><h4>Çalışma Prensibi</h4><p>Talebinize aynı iş günü içinde dönüş yapıyoruz.</p></div>
+        </div>
+      </div>
+      <div class="form-card rv" style="transition-delay:.1s">
+        <h3>Teklif & Bilgi Formu</h3>
+        <p>Formu doldurun, e-posta istemciniz üzerinden bize anında iletin.</p>
+        <form id="contactForm">
+          <div class="f-row">
+            <div class="f-group"><label>Ad Soyad</label><input type="text" name="ad" placeholder="Adınız Soyadınız" required></div>
+            <div class="f-group"><label>Telefon</label><input type="tel" name="tel" placeholder="05xx xxx xx xx"></div>
+          </div>
+          <div class="f-group"><label>E-Posta</label><input type="email" name="email" placeholder="ornek@firma.com" required></div>
+          <div class="f-group"><label>Konu</label><input type="text" name="konu" placeholder="Örn. Çimento fiyat teklifi"></div>
+          <div class="f-group"><label>Mesajınız</label><textarea rows="4" name="mesaj" placeholder="Talebinizi kısaca açıklayın..." required></textarea></div>
+          <button type="submit" class="btn-fill">Mesajı Gönder
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="foot">
+    <a href="#top"><img src="Gorseller/logo.png" alt="Ulusal Yapı"></a>
+    <span>© <span id="year"></span> Ulusal Yapı. Tüm hakları saklıdır.</span>
+    <span>KVKK & Gizlilik Politikası</span>
+  </div>
+</footer>
+
+</main>
+
+<button id="toTop" aria-label="Yukarı çık">↑</button>
+
+<script>
+// toTop
+const toTop=document.getElementById('toTop');
+const onScroll=()=>{toTop.classList.toggle('show',window.scrollY>700)};
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+toTop.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
+
+// Mobil menü (kenar çubuğunu tam ekran aç/kapa)
+const burger=document.getElementById('hamburger');
+burger.addEventListener('click',()=>{
+  burger.classList.toggle('open');
+  document.body.classList.toggle('menu-open');
+});
+document.querySelectorAll('.s-nav a,.s-foot .cta').forEach(a=>a.addEventListener('click',()=>{
+  burger.classList.remove('open');
+  document.body.classList.remove('menu-open');
+}));
+
+// Reveal on scroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}
+}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+// Sayaçlar
+const cio=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  const el=e.target,to=+el.dataset.to,t0=performance.now(),dur=1600;
+  const tick=t=>{
+    const p=Math.min((t-t0)/dur,1),ease=1-Math.pow(1-p,3);
+    el.textContent=Math.round(to*ease);
+    if(p<1)requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);cio.unobserve(el);
+}),{threshold:.6});
+document.querySelectorAll('.count').forEach(el=>cio.observe(el));
+
+// Aktif menü bağlantısı
+const secs=document.querySelectorAll('header,section');
+const nio=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  const id=e.target.id;
+  document.querySelectorAll('.s-nav a').forEach(a=>{
+    a.classList.toggle('active',a.getAttribute('href')==='#'+id);
+  });
+}),{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>s.id&&nio.observe(s));
+
+// Form → mailto
+document.getElementById('contactForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const f=new FormData(e.target);
+  const body=`Ad Soyad: ${f.get('ad')}%0ATelefon: ${f.get('tel')||'-'}%0AE-Posta: ${f.get('email')}%0A%0A${encodeURIComponent(f.get('mesaj'))}`;
+  location.href=`mailto:info@ulusalyapi.com?subject=${encodeURIComponent(f.get('konu')||'Web Sitesi İletişim Formu')}&body=${body}`;
+});
+
+document.getElementById('year').textContent=new Date().getFullYear();
+
+/* ================= 4'LÜ İNTERAKTİF ÜRÜN KÜRESİ =================
+   - PRODUCTS listesindeki her grubun "site" adresini değiştirerek
+     "Sitemizi Ziyaret Et" butonunu farklı sitelere yönlendirebilirsiniz.
+     (Şimdilik yalnızca Perlit → ulusalperlit.com kesin; diğerleri geçici
+      olarak ulusalyapi.com'a gidiyor.)
+   - "Teknoloji ve Yazılım" grubunun metinleri TEMSİLİDİR; gerçek
+     hizmet başlıklarıyla değiştirilecek.
+   - imgs: Gorseller klasöründeki grup illüstrasyonları — panelin üst
+     kısmında sırayla geçiş yapar.
+================================================================ */
+const ICONS={
+  box:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/></svg>',
+  flask:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v8L4.5 20a1 1 0 0 0 .9 1.5h13.2a1 1 0 0 0 .9-1.5L14 10V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/></svg>',
+  sun:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>',
+  cpu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg>'
+};
+const PRODUCTS=[
+ {name:"Yapı Malzemeleri",icon:"box",site:"https://ulusalyapi.com",siteLabel:"ulusalyapi.com",
+  imgs:["Gorseller/yapi-malzemeleri-1.png","Gorseller/yapi-malzemeleri-2.png","Gorseller/yapi-malzemeleri-3.png"],
+  desc:"Çimentodan alçıya, yapı kimyasallarından paslanmaz çeliğe — inşaatın her aşaması için eksiksiz malzeme portföyü.",
+  cats:[
+  {t:"Çimento",items:[
+   {n:"CEM I",d:"Yüksek klinker oranıyla hızlı dayanım kazanan, yüksek mukavemetli Portland çimentosu.",u:"https://ulusalyapi.com/cem-1"},
+   {n:"CEM II",d:"Mineral katkılı, genel amaçlı Portland kompoze çimento.",u:"https://ulusalyapi.com/cem-2"},
+   {n:"CEM III",d:"Yüksek fırın cürufu içeren, sülfata dayanıklı çimento.",u:"https://ulusalyapi.com/cem-3"},
+   {n:"CEM IV",d:"Puzolanik katkılı, düşük hidratasyon ısılı çimento.",u:"https://ulusalyapi.com/cem-4"},
+   {n:"CEM V",d:"Cüruf ve puzolan katkılı, zorlu ortamlara dayanıklı kompoze çimento.",u:"https://ulusalyapi.com/cem-5"},
+   {n:"Öğütülmüş Cüruf",d:"Beton dayanıklılığını artıran öğütülmüş yüksek fırın cürufu.",u:"https://ulusalyapi.com/ogutulmus-curuf"}]},
+  {t:"Beyaz Çimento",items:[
+   {n:"CEM I Beyaz",d:"Yüksek beyazlık derecesiyle dekoratif uygulamaların vazgeçilmezi.",u:"https://ulusalyapi.com/cem-1-beyaz"},
+   {n:"CEM II Beyaz",d:"Mineral katkılı, estetik yüzeyler için beyaz kompoze çimento.",u:"https://ulusalyapi.com/cem-2-beyaz"}]},
+  {t:"Alçı Grubu",items:[
+   {n:"Perlitli El Alçısı",d:"Perlit katkılı, hafif ve yüksek verimli el alçısı.",u:"https://ulusalyapi.com/perlitli-el-alcisi"},
+   {n:"Makina Alçısı",d:"Makine uygulamalı, pürüzsüz yüzey sunan alçı sıva.",u:"https://ulusalyapi.com/makina-alcisi"},
+   {n:"Saten Perdah Alçısı",d:"Boya öncesi ipeksi pürüzsüzlük sağlayan perdah alçısı.",u:"https://ulusalyapi.com/saten-perdah-alcisi"},
+   {n:"Kartonpiyer Alçısı",d:"Dekoratif kartonpiyer imalatı için yüksek mukavemetli alçı.",u:"https://ulusalyapi.com/kartonpiyer-alcisi"},
+   {n:"Konsantre Alçı",d:"Yüksek saflıkta konsantre alçı hammaddesi.",u:"https://ulusalyapi.com/Konsantre-alci"}]},
+  {t:"Alçı Plaka & Aksesuar",items:[
+   {n:"Standart Alçı Plaka",d:"Bölme duvar ve asma tavanlar için standart alçı levha.",u:"https://ulusalyapi.com/standart-alci-plaka"},
+   {n:"Yangına Dayanıklı Alçı Plaka",d:"Yangın dayanımı artırılmış özel alçı levha.",u:"https://ulusalyapi.com/yangina-dayanikli-alci-plaka"},
+   {n:"Suya Dayanıklı Alçı Plaka",d:"Islak hacimler için su emilimi azaltılmış alçı levha.",u:"https://ulusalyapi.com/suya-dayanikli-alci-plaka"},
+   {n:"Özel Levhalar",d:"Akustik, darbe dayanımlı ve özel amaçlı levha çözümleri.",u:"https://ulusalyapi.com/ozel-levhalar"},
+   {n:"Alçı Astarları",d:"Alçı yüzeylerde aderansı artıran astar grubu.",u:"https://ulusalyapi.com/alci-astarlari"},
+   {n:"Alçı Levha Aksesuarları",d:"Profil, vida, bant ve montaj aksesuarları.",u:"https://ulusalyapi.com/alci-levha-aksesuarlari"}]},
+  {t:"Kireç Grubu",items:[
+   {n:"Sönmüş İnşaat Kireci (CL 80-S)",d:"Harç ve sıvalarda işlenebilirlik sağlayan sönmüş kireç.",u:"https://ulusalyapi.com/sonmus-insaat-kireci-cl-80-s"},
+   {n:"Sönmüş Sanayi Kireci (CL 90-S)",d:"Endüstriyel prosesler için yüksek saflıkta sönmüş kireç.",u:"https://ulusalyapi.com/sonmus-sanayi-kireci-cl-90-s"},
+   {n:"Sönmemiş Kalsiyum Kireci (CL 80-Q)",d:"Yüksek reaktiviteli sönmemiş kalsiyum kireci.",u:"https://ulusalyapi.com/sonmemis-kalsiyum-kireci-cl-80-q"},
+   {n:"Tarım Kireci",d:"Toprak pH düzenlemesi için öğütülmüş tarım kireci.",u:"https://ulusalyapi.com/tarim-kireci"}]},
+  {t:"Çimento Esaslı Sıvalar",items:[
+   {n:"Makina Sıvası",d:"Makine ile hızlı uygulama, homojen yüzey.",u:"https://ulusalyapi.com/makina-sivasi"},
+   {n:"El Sıvası",d:"Elle uygulama için çimento esaslı sıva.",u:"https://ulusalyapi.com/el-sivasi"},
+   {n:"Hafif Makina Sıvası",d:"Hafif agregalı, verimi yüksek makina sıvası.",u:"https://ulusalyapi.com/hafif-makina-sivasi"},
+   {n:"İnce Perdah Sıvası",d:"İnce kat düzeltme ve perdah sıvası.",u:"https://ulusalyapi.com/ince-perdah-sivasi"},
+   {n:"Beyaz Çimentolu Makina Sıvası",d:"Beyaz çimento esaslı, aydınlık yüzeyli makina sıvası.",u:"https://ulusalyapi.com/beyaz-cimento-esasli-makina-sivasi"},
+   {n:"Beyaz Çimentolu El Sıvası",d:"Beyaz çimento esaslı, elle uygulanan sıva.",u:"https://ulusalyapi.com/beyaz-cimento-esasli-el-sivasi"},
+   {n:"Son Kat Sıva",d:"Dekoratif dokulu son kat kaplama sıvası.",u:"https://ulusalyapi.com/son-kat-siva"},
+   {n:"İnce Saten Macun",d:"Boya öncesi ince dokulu saten macun.",u:"https://ulusalyapi.com/ince-saten-macun"}]},
+  {t:"Yapıştırma & Derz Dolgu",items:[
+   {n:"Seramik Fayans Yapıştırıcı",d:"Standart seramik ve fayans yapıştırma harcı.",u:"https://ulusalyapi.com/seramik-fayans-yapistirici"},
+   {n:"Esnek Seramik Yapıştırıcısı",d:"Yerden ısıtma ve dış cephede esnek yapıştırıcı.",u:"https://ulusalyapi.com/esnek-seramik-fayans-yapistiricisi"},
+   {n:"Derz Dolgu",d:"Seramik derzleri için renkli dolgu harcı.",u:"https://ulusalyapi.com/derz-dolgu"},
+   {n:"Esnek Derz Dolgu",d:"Geniş ve hareketli derzler için esnek dolgu.",u:"https://ulusalyapi.com/esnek-derz-dolgu"},
+   {n:"Derz Dolgu Mastiği",d:"Derz bitişleri için mastik çözümü.",u:"https://ulusalyapi.com/derz-dolgu-mastigi"},
+   {n:"Gazbeton Yapıştırıcısı",d:"Gazbeton blok örümü için ince yataklı harç.",u:"https://ulusalyapi.com/gazbeton-yapistiricisi"},
+   {n:"Poliüretan Yapıştırma Macunu",d:"Güçlü ve esnek poliüretan yapıştırıcı.",u:"https://ulusalyapi.com/poliuretan-yapistirma-macunu"},
+   {n:"PVC Zemin Yapıştırıcısı",d:"PVC ve esnek zemin kaplama yapıştırıcısı.",u:"https://ulusalyapi.com/pvc-zemin-yapistiricisi"}]},
+  {t:"Isı Yalıtım Grubu",items:[
+   {n:"Isı Yalıtım Malzemeleri",d:"EPS, XPS ve taş yünü levha çözümleri.",u:"https://ulusalyapi.com/isi-yalitim-malzemeleri"},
+   {n:"Isı Yalıtım Yapıştırıcısı",d:"Yalıtım levhası yapıştırma harcı.",u:"https://ulusalyapi.com/isi-yalitim-yapistiricisi"},
+   {n:"Isı Yalıtım Sıvası",d:"Levha üzeri donatılı yalıtım sıvası.",u:"https://ulusalyapi.com/isi-yalitim-sivasi"},
+   {n:"Dekoratif Kaplama Sıvası",d:"Mantolama üzeri dekoratif son kat.",u:"https://ulusalyapi.com/dekoratif-kaplama-sivasi"}]},
+  {t:"Su Yalıtım Grubu",items:[
+   {n:"Tek Bileşenli Su Yalıtım Harcı",d:"Çimento esaslı, pratik su yalıtımı.",u:"https://ulusalyapi.com/cimento-esasli-tek-bilesenli-su-yalitim-harci"},
+   {n:"Çift Bileşenli Su Yalıtım Harcı",d:"Tam esnek, çift bileşenli su yalıtımı.",u:"https://ulusalyapi.com/cimento-esasli-cift-bilesenli-su-yalitim-harci"},
+   {n:"Kristalize Su Yalıtım Harcı",d:"Kılcal çatlakları kristalize sistemle kapatır.",u:"https://ulusalyapi.com/cimento-esasli-cift-bilesenli-kristalize-su-yalitim-harci"},
+   {n:"Poliüretan Su Yalıtımı",d:"UV dayanımlı likit poliüretan membran.",u:"https://ulusalyapi.com/poliuretan-esasli-tek-bilesenli-su-yalitim-malzemesi"}]},
+  {t:"Zemin Grubu",items:[
+   {n:"Hazır Şap",d:"Zemin tesviyesi için hazır çimento şapı.",u:"https://ulusalyapi.com/hazir-sap"},
+   {n:"Kendinden Yayılan Şap",d:"Kendiliğinden yayılan, mükemmel düzlük.",u:"https://ulusalyapi.com/kendinden-yayilan-sap"},
+   {n:"Alçı Bazlı Şap",d:"İç mekân için alçı esaslı şap.",u:"https://ulusalyapi.com/alci-bazli-sap"}]},
+  {t:"Diğer Harç ve Sistemler",items:[
+   {n:"Mastik Grubu",d:"Poliüretan ve hibrit mastik çözümleri.",u:"https://ulusalyapi.com/mastik-grubu"},
+   {n:"Endüstriyel Zemin Kaplamaları",d:"Epoksi ve poliüretan zemin sistemleri.",u:"https://ulusalyapi.com/endustriyel-zemin-kaplamalari"},
+   {n:"Beton Katkıları",d:"Akışkanlaştırıcı ve priz düzenleyici katkılar.",u:"https://ulusalyapi.com/beton-katkilari"},
+   {n:"Yapısal Güçlendirme",d:"Karbon fiber ve epoksi güçlendirme sistemleri.",u:"https://ulusalyapi.com/yapisal-guclendirme"},
+   {n:"Tamir ve Ankraj Harçları",d:"Yapısal tamir ve ankraj grout harçları.",u:"https://ulusalyapi.com/tamir-ve-ankraj-harclari"},
+   {n:"Örgü Harçları",d:"Duvar örümü için hazır harçlar.",u:"https://ulusalyapi.com/orgu-harclari"},
+   {n:"Dekorasyon-Restorasyon Harçları",d:"Tarihi doku ve dekoratif restorasyon harçları.",u:"https://ulusalyapi.com/dekorasyon-restorasyon-harclari"},
+   {n:"Tamamlayıcı Ürünler",d:"File, profil, astar ve yardımcı ürünler.",u:"https://ulusalyapi.com/tamamlayici-urunler"}]},
+  {t:"Paslanmaz Çelik & Metal",items:[
+   {n:"Paslanmaz Çelik",d:"Korozyona dayanıklı paslanmaz ürün gamı.",u:"https://ulusalyapi.com/paslanmaz-celik"},
+   {n:"Çelik / Sac / Boru",d:"Sac, profil ve boru çözümleri.",u:"https://ulusalyapi.com/celik-sac-boru"},
+   {n:"Demir",d:"Yapısal demir ürünleri.",u:"https://ulusalyapi.com/demir"}]},
+  {t:"Hazır Beton & Diğer",items:[
+   {n:"Hazır Beton",d:"Standartlara uygun üretilen taze hazır beton.",u:"https://ulusalyapi.com/hazir-beton"},
+   {n:"İnşaat Demiri",d:"Nervürlü inşaat demiri tedariki.",u:"https://ulusalyapi.com/insaat-demiri"},
+   {n:"Gazbeton",d:"Hafif ve yalıtımlı gazbeton blok.",u:"https://ulusalyapi.com/gazbeton"}]}]},
+ {name:"Kimyasal Hammaddeler",icon:"flask",site:"https://ulusalyapi.com",siteLabel:"ulusalyapi.com",
+  imgs:["Gorseller/kimyasal-hammaddeler-1.png","Gorseller/kimyasal-hammaddeler-2.png","Gorseller/kimyasal-hammaddeler-3.png"],
+  desc:"Harç ve beton performansını artıran endüstriyel katkı hammaddeleri.",
+  cats:[{t:null,items:[
+   {n:"Selüloz Eter",d:"Su tutma ve işlenebilirlik katkısı.",u:"https://ulusalyapi.com/seluloz-eter"},
+   {n:"Toz Polimer",d:"Aderans ve esneklik artırıcı polimer.",u:"https://ulusalyapi.com/toz-polimer"},
+   {n:"Çinko Stereat",d:"Su itici hidrofobik katkı.",u:"https://ulusalyapi.com/cinko-stereat"},
+   {n:"Kalsiyum Stereat",d:"Su iticilik ve topaklanma önleyici.",u:"https://ulusalyapi.com/kalsiyum-stereat"},
+   {n:"Elyaf (Cam / Polipropilen)",d:"Çatlak kontrolü için cam ve polipropilen elyaf.",u:"https://ulusalyapi.com/elyaf-cam-polipropilen"},
+   {n:"Kalsiyum Formiat",d:"Priz hızlandırıcı, erken dayanım katkısı.",u:"https://ulusalyapi.com/kalsiyum-formiat"},
+   {n:"Nişasta Eter",d:"Kıvam ve sarkma direnci düzenleyici.",u:"https://ulusalyapi.com/nisasta-eter"}]}]},
+ {name:"Perlit",icon:"sun",site:"https://www.ulusalperlit.com",siteLabel:"ulusalperlit.com",
+  imgs:["Gorseller/perlit-1.png","Gorseller/perlit-2.png","Gorseller/perlit-3.png"],
+  desc:"Perlit esaslı hafif ve yalıtımlı çözümler — ulusalperlit.com güvencesiyle.",
+  cats:[{t:null,items:[
+   {n:"Perlitli Dış Cephe Sıva Harcı",d:"Isı yalıtımına katkı sağlayan perlitli dış cephe sıvası.",u:"https://ulusalyapi.com/perlitli-dis-cephe-siva-harci"},
+   {n:"Perlitli İç Cephe Sıva Harcı",d:"Nefes alan, hafif perlitli iç cephe sıvası.",u:"https://ulusalyapi.com/perlitli-ic-cephe-siva-harci"},
+   {n:"Perlitli Yüzey Düzeltme Macunu",d:"Perlitli, hafif yüzey düzeltme macunu.",u:"https://ulusalyapi.com/perlitli-yuzey-duzeltme-macunu"},
+   {n:"Perlitli Dekoratif Sıva",d:"Perlitli dokulu dekoratif kaplama.",u:"https://ulusalyapi.com/perlitli-dekoratif-siva"},
+   {n:"Perlitli Hafif Şap",d:"Hafif ve yalıtım destekli perlitli şap.",u:"https://ulusalyapi.com/perlitli-hafif-sap"},
+   {n:"Tarım Perliti",d:"Toprak havalandırması için genleştirilmiş perlit.",u:"https://ulusalyapi.com/tarim-perliti"}]}]},
+ {name:"Teknoloji ve Yazılım",icon:"cpu",site:"https://ulusalyapi.com",siteLabel:"ulusalyapi.com",
+  imgs:["Gorseller/teknoloji-yazilim-1.png","Gorseller/teknoloji-yazilim-2.png","Gorseller/teknoloji-yazilim-3.png"],
+  desc:"Grubumuzun teknoloji ve yazılım alanındaki çözümleri. (Metinler temsilidir; gerçek hizmet başlıklarıyla güncellenecektir.)",
+  cats:[{t:null,items:[
+   {n:"Kurumsal Yazılım Çözümleri",d:"İş süreçlerine özel kurumsal yazılım geliştirme ve destek.",u:null},
+   {n:"E-Ticaret & B2B Altyapıları",d:"Toptan ve perakende satış kanalları için dijital altyapı.",u:null},
+   {n:"Entegrasyon & Otomasyon",d:"ERP, muhasebe ve lojistik sistemleri arasında veri entegrasyonu.",u:null},
+   {n:"Dijital Dönüşüm Danışmanlığı",d:"Süreç analizi ve dijitalleşme yol haritası danışmanlığı.",u:null}]}]}
+];
+
+const wheelEl=document.getElementById('wheel'),linesEl=document.getElementById('wheelLines'),panelEl=document.getElementById('panel');
+const SVGNS='http://www.w3.org/2000/svg';
+PRODUCTS.forEach((g,i)=>{
+  const ang=(i*90+225)*Math.PI/180,R=41;
+  const x=50+R*Math.cos(ang),y=50+R*Math.sin(ang);
+  const ln=document.createElementNS(SVGNS,'line');
+  ln.setAttribute('x1',50);ln.setAttribute('y1',50);ln.setAttribute('x2',x);ln.setAttribute('y2',y);
+  ln.setAttribute('vector-effect','non-scaling-stroke');
+  linesEl.appendChild(ln);
+  const dt=document.createElementNS(SVGNS,'circle');
+  dt.setAttribute('cx',x);dt.setAttribute('cy',y);dt.setAttribute('r','.9');
+  linesEl.appendChild(dt);
+  const count=g.cats.reduce((s,c)=>s+c.items.length,0);
+  const nd=document.createElement('button');
+  nd.className='wheel-node';nd.type='button';
+  nd.style.left=x+'%';nd.style.top=y+'%';
+  nd.innerHTML=`<span class="n-im"><img src="${g.imgs[0]}" alt=""></span><span class="n-tx">${g.name}<small>${count} alt başlık</small></span>`;
+  nd.addEventListener('mouseenter',()=>select(i,false));
+  nd.addEventListener('click',()=>select(i,true));
+  wheelEl.appendChild(nd);
+});
+let current=-1,visTimer=null;
+function select(i,fromClick){
+  if(current===i){
+    if(fromClick&&matchMedia('(max-width:980px)').matches)panelEl.scrollIntoView({behavior:'smooth',block:'nearest'});
+    return;
+  }
+  current=i;
+  document.querySelectorAll('.wheel-node').forEach((n,k)=>n.classList.toggle('active',k===i));
+  renderPanel(PRODUCTS[i]);
+  panelEl.classList.remove('panel-fade');void panelEl.offsetWidth;panelEl.classList.add('panel-fade');
+  startVisual();
+  if(fromClick&&matchMedia('(max-width:980px)').matches)panelEl.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function itemHTML(it){
+  const link=it.u?`<br><a href="${it.u}" target="_blank" rel="noopener">Ürün sayfası
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>`:'';
+  return `<div class="sub-item">
+    <button type="button"><span class="dot"></span>${it.n}
+      <svg class="chev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="si-body"><div class="si-in">${it.d}${link}</div></div>
+  </div>`;
+}
+function renderPanel(g){
+  const count=g.cats.reduce((s,c)=>s+c.items.length,0);
+  panelEl.innerHTML=`
+    <div class="panel-visual">${g.imgs.map((s,k)=>`<img src="${s}" alt="" class="${k===0?'on':''}">`).join('')}</div>
+    <div class="panel-head"><span class="p-ic">${ICONS[g.icon]}</span>
+      <div><h3>${g.name}</h3><div class="p-count">${count} alt başlık · detay için tıklayın</div></div>
+    </div>
+    <div class="panel-desc">${g.desc}</div>
+    <div class="panel-body">${g.cats.map(c=>(c.t?`<div class="sub-cat">${c.t}</div>`:'')+c.items.map(itemHTML).join('')).join('')}</div>
+    <div class="panel-foot">
+      <a class="visit-btn" href="${g.site}" target="_blank" rel="noopener">Sitemizi Ziyaret Et — ${g.siteLabel}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+    </div>`;
+}
+function startVisual(){
+  clearInterval(visTimer);
+  const imgs=[...panelEl.querySelectorAll('.panel-visual img')];
+  if(imgs.length<2||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  let v=0;
+  visTimer=setInterval(()=>{
+    imgs[v].classList.remove('on');
+    v=(v+1)%imgs.length;
+    imgs[v].classList.add('on');
+  },3600);
+}
+panelEl.addEventListener('click',e=>{
+  const btn=e.target.closest('.sub-item>button');
+  if(!btn)return;
+  btn.parentElement.classList.toggle('open');
+});
+select(0,false);
+</script>
+</body>
+</html>

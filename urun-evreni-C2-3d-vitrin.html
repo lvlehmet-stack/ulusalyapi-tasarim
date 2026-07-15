@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ürün Evreni — Revize 2 · 3D Vitrin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f8fc;--bg2:#edf2f9;--surface:#ffffff;--surface2:#f3f7fc;
+  --line:rgba(22,36,60,.12);--text:#16243c;--muted:#53627e;
+  --accent:#2b62c4;--accent2:#1d4fa8;--ice:#1d4fa8;--red:#d0242b;
+  --grad:linear-gradient(96deg,#4b84e0 0%,#2b62c4 100%);--on-accent:#ffffff;--radius:6px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;line-height:1.75;min-height:100vh;overflow-x:hidden;padding:clamp(28px,5vh,64px) clamp(16px,4vw,60px)}
+h2,h3,h4{font-family:'Syne',sans-serif;line-height:1.1;font-weight:700;letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+img{max-width:100%}
+.demo-tag{position:fixed;top:14px;right:14px;z-index:99;padding:8px 16px;border-radius:99px;font-size:12px;font-weight:700;letter-spacing:.08em;background:var(--text);color:#fff;box-shadow:0 8px 22px rgba(22,36,60,.25)}
+.stage{max-width:1220px;margin:0 auto}
+.head{text-align:center}
+.sec-no{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--accent2);letter-spacing:.2em}
+.sec-title{font-size:clamp(26px,4vw,44px);margin:10px 0 12px}
+.sec-title em{font-style:normal;color:var(--accent2)}
+.sec-desc{max-width:640px;margin:0 auto;color:var(--muted);font-size:15px}
+.panel{
+  position:relative;border-radius:12px;background:var(--surface);border:1px solid var(--line);
+  box-shadow:0 20px 54px rgba(22,36,60,.10);
+  height:min(680px,88vh);display:flex;flex-direction:column;overflow:hidden;
+}
+.panel::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#4b84e0,#2b62c4 72%,var(--red));z-index:3}
+.panel-visual{position:relative;height:148px;flex:none;overflow:hidden;background:#eef3fa;border-bottom:1px solid var(--line)}
+.panel-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s ease}
+.panel-visual img.on{opacity:1}
+.panel-head{display:flex;align-items:center;gap:15px;padding:20px 26px 12px}
+.panel-head .p-ic{width:50px;height:50px;flex:none;border-radius:10px;background:var(--grad);color:var(--on-accent);display:grid;place-items:center}
+.panel-head .p-ic svg{width:25px;height:25px}
+.panel-head h3{font-size:20px;line-height:1.2}
+.panel-head .p-count{font-size:12.5px;color:var(--muted);margin-top:2px}
+.panel-desc{padding:0 26px;font-size:13.5px;color:var(--muted)}
+.panel-body{flex:1;overflow-y:auto;padding:14px 26px 18px;scrollbar-width:thin;scrollbar-color:rgba(43,98,196,.3) transparent}
+.panel-body::-webkit-scrollbar{width:7px}
+.panel-body::-webkit-scrollbar-thumb{background:rgba(43,98,196,.25);border-radius:99px}
+.sub-cat{margin:16px 0 8px;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent2);display:flex;align-items:center;gap:10px}
+.sub-cat:first-child{margin-top:2px}
+.sub-cat::after{content:"";flex:1;height:1px;background:var(--line)}
+.sub-item{border:1px solid var(--line);border-radius:10px;margin-bottom:8px;overflow:hidden;background:var(--surface2);transition:border-color .3s,box-shadow .3s}
+.sub-item:hover{border-color:rgba(43,98,196,.32)}
+.sub-item>button{
+  width:100%;display:flex;align-items:center;gap:11px;padding:12px 15px;background:none;border:0;cursor:pointer;
+  font-size:13.5px;font-weight:600;color:var(--text);text-align:left;
+}
+.sub-item .dot{width:7px;height:7px;flex:none;border-radius:50%;background:var(--red);box-shadow:0 0 0 3px rgba(208,36,43,.14)}
+.sub-item .chev{margin-left:auto;flex:none;transition:transform .35s;color:var(--muted)}
+.sub-item .si-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.2,.7,.3,1)}
+.sub-item.open{border-color:rgba(43,98,196,.45);box-shadow:0 8px 22px rgba(22,36,60,.08)}
+.sub-item.open .chev{transform:rotate(180deg)}
+.sub-item.open .si-body{max-height:220px}
+.sub-item .si-in{padding:0 15px 13px 33px;font-size:13px;color:var(--muted)}
+.sub-item .si-in a{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-weight:700;color:var(--accent2);font-size:12.5px}
+.sub-item .si-in a:hover{text-decoration:underline}
+.panel-foot{padding:15px 26px;border-top:1px solid var(--line);background:var(--surface2)}
+.visit-btn{
+  position:relative;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  padding:14px 22px;border-radius:var(--radius);background:var(--grad);color:var(--on-accent);
+  font-weight:700;font-size:14px;letter-spacing:.04em;overflow:hidden;
+  box-shadow:0 10px 26px rgba(43,98,196,.32);
+  transition:transform .3s,box-shadow .3s;
+}
+.visit-btn:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(43,98,196,.46)}
+.visit-btn::after{
+  content:"";position:absolute;top:0;left:-80%;width:45%;height:100%;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.5),transparent);
+  transform:skewX(-22deg);animation:shine 3.2s ease infinite;
+}
+@keyframes shine{0%{left:-80%}55%,100%{left:130%}}
+.visit-btn svg{transition:transform .3s}
+.visit-btn:hover svg{transform:translateX(4px)}
+.panel-fade .panel-head,.panel-fade .panel-desc,.panel-fade .panel-body{animation:panelin .45s cubic-bezier(.2,.7,.3,1)}
+@keyframes panelin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ---------- Revize 2: 3D Vitrin ---------- */
+.hub{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(26px,3.5vw,48px);align-items:center;margin-top:44px}
+.scene{position:relative;perspective:1300px}
+.orb{position:absolute;border-radius:50%;filter:blur(46px);pointer-events:none}
+.o1{width:44%;aspect-ratio:1;left:-4%;top:0;background:rgba(75,132,224,.24);animation:drift 10s ease-in-out infinite}
+.o2{width:28%;aspect-ratio:1;right:-2%;bottom:4%;background:rgba(208,36,43,.12);animation:drift 12s ease-in-out infinite reverse}
+@keyframes drift{50%{transform:translate(4%,6%)}}
+.tilt{
+  position:relative;aspect-ratio:1;max-width:560px;width:100%;margin:0 auto;
+  transform-style:preserve-3d;user-select:none;
+}
+/* vitrin zemini: yansıma hissi veren yumuşak taban çizgisi */
+.floor{
+  position:absolute;left:4%;right:4%;bottom:7%;height:22%;pointer-events:none;
+  background:radial-gradient(58% 100% at 50% 0%,rgba(43,98,196,.13),transparent 72%);
+}
+.floor::before{content:"";position:absolute;left:8%;right:8%;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(43,98,196,.4),transparent)}
+.disc{
+  position:absolute;left:79%;top:19%;width:22%;aspect-ratio:1;z-index:4;
+  transform:translate(-50%,-50%) translateZ(30px);transform-style:preserve-3d;
+  border-radius:50%;background:var(--surface);display:grid;place-items:center;
+  box-shadow:0 26px 50px rgba(22,36,60,.24),0 0 0 1px var(--line);
+  animation:float 5.5s ease-in-out infinite;
+}
+@keyframes float{50%{transform:translate(-50%,-56%) translateZ(30px)}}
+.disc img{width:70%}
+.ring{position:absolute;inset:-13%;border-radius:50%;border:1.5px dashed rgba(43,98,196,.45);animation:spin 15s linear infinite}
+.ring::after{
+  content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;border-radius:50%;
+  background:var(--red);box-shadow:0 0 12px rgba(208,36,43,.7);
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.g-node{
+  position:absolute;width:40%;z-index:5;
+  border:1px solid rgba(255,255,255,.85);border-radius:14px;overflow:hidden;padding:0;
+  background:rgba(255,255,255,.78);backdrop-filter:blur(10px);text-align:left;
+  box-shadow:0 24px 48px rgba(22,36,60,.18);
+  transition:transform .3s ease-out,box-shadow .45s,border-color .45s;
+}
+.g-node:hover{box-shadow:0 38px 66px rgba(22,36,60,.26);z-index:7}
+.g-node.active{border-color:rgba(43,98,196,.55);box-shadow:0 30px 58px rgba(43,98,196,.34);z-index:6}
+.g-node::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad);opacity:0;transition:opacity .4s;z-index:2}
+.g-node.active::before{opacity:1}
+.g-node::after{
+  content:"";position:absolute;top:0;left:-90%;width:50%;height:100%;z-index:2;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.55),transparent);
+  transform:skewX(-22deg);animation:shine2 4.6s ease infinite;
+}
+@keyframes shine2{0%{left:-90%}60%,100%{left:140%}}
+.g-node .cimg{display:block;width:100%;aspect-ratio:16/9.5;position:relative;overflow:hidden;background:#eef3fa}
+.g-node .cimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.g-node:hover .cimg img{transform:scale(1.06)}
+.g-node .ctx{display:block;padding:9px 14px 11px}
+.g-node .ctx b{display:block;font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(11.5px,1.15vw,14px);line-height:1.25}
+.g-node .ctx small{font-size:10.5px;color:var(--muted);letter-spacing:.04em}
+.g-node.active .ctx b{color:var(--accent2)}
+/* kart altı yansıması */
+.g-node .refl{
+  content:"";position:absolute;left:8%;right:8%;bottom:-14px;height:12px;border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(22,36,60,.22),transparent 70%);
+  pointer-events:none;
+}
+/* cam panel (sağ taraf — C ile birebir aynı) */
+.panel{background:rgba(255,255,255,.8);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.9)}
+@media(max-width:980px){
+  .hub{grid-template-columns:1fr}
+  .tilt{max-width:480px}
+  .panel{height:auto;max-height:76vh;min-height:440px}
+}
+@media(max-width:560px){
+  .tilt{max-width:380px}
+  .g-node .ctx small{display:none}
+  .panel-visual{height:110px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<div class="demo-tag">REVİZE 2 · 3D VİTRİN</div>
+
+<div class="stage">
+  <div class="head">
+    <span class="sec-no">02</span>
+    <h2 class="sec-title">Dört Ana Grupta <em>Ürün Evreni</em></h2>
+    <p class="sec-desc">Kartlar basamaklı bir vitrin gibi çapraz dizildi; fareyi gezdirdikçe her kart kendi derinliğinde süzülür, üzerine gelen kart düzleşip öne çıkar. Detaylar yandaki panelde.</p>
+  </div>
+  <div class="hub">
+    <div class="scene" id="scene">
+      <span class="orb o1"></span><span class="orb o2"></span>
+      <div class="tilt" id="tilt">
+        <div class="floor"></div>
+        <div class="disc"><div class="ring"></div><img src="Gorseller/logo.png" alt="Ulusal Yapı"></div>
+      </div>
+    </div>
+    <div class="panel" id="panel"></div>
+  </div>
+</div>
+
+<script>
+const ICONS={
+  box:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/></svg>',
+  flask:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v8L4.5 20a1 1 0 0 0 .9 1.5h13.2a1 1 0 0 0 .9-1.5L14 10V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/></svg>',
+  sun:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>',
+  cpu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg>'
+};
+const PRODUCTS=[
+ {name:"Yapı Malzemeleri",icon:"box",site:"https://ulusalyapi.com",siteLabel:"ulusalyapi.com",
+  imgs:["Gorseller/yapi-malzemeleri-1.png","Gorseller/yapi-malzemeleri-2.png","Gorseller/yapi-malzemeleri-3.png"],
+  desc:"Çimentodan alçıya, yapı kimyasallarından paslanmaz çeliğe — inşaatın her aşaması için eksiksiz malzeme portföyü.",
+  cats:[
+  {t:"Çimento",items:[
+   {n:"CEM I",d:"Yüksek klinker oranıyla hızlı dayanım kazanan, yüksek mukavemetli Portland çimentosu.",u:"https://ulusalyapi.com/cem-1"},
+   {n:"CEM II",d:"Mineral katkılı, genel amaçlı Portland kompoze çimento.",u:"https://ulusalyapi.com/cem-2"},
+   {n:"CEM III",d:"Yüksek fırın cürufu içeren, sülfata dayanıklı çimento.",u:"https://ulusalyapi.com/cem-3"},
+   {n:"CEM IV",d:"Puzolanik katkılı, düşük hidratasyon ısılı çimento.",u:"https://ulusalyapi.com/cem-4"},
+   {n:"CEM V",d:"Cüruf ve puzolan katkılı, zorlu ortamlara dayanıklı kompoze çimento.",u:"https://ulusalyapi.com/cem-5"},
+   {n:"Öğütülmüş Cüruf",d:"Beton dayanıklılığını artıran öğütülmüş yüksek fırın cürufu.",u:"https://ulusalyapi.com/ogutulmus-curuf"}]},
+  {t:"Beyaz Çimento",items:[
+   {n:"CEM I Beyaz",d:"Yüksek beyazlık derecesiyle dekoratif uygulamaların vazgeçilmezi.",u:"https://ulusalyapi.com/cem-1-beyaz"},
+   {n:"CEM II Beyaz",d:"Mineral katkılı, estetik yüzeyler için beyaz kompoze çimento.",u:"https://ulusalyapi.com/cem-2-beyaz"}]},
+  {t:"Alçı Grubu",items:[
+   {n:"Perlitli El Alçısı",d:"Perlit katkılı, hafif ve yüksek verimli el alçısı.",u:"https://ulusalyapi.com/perlitli-el-alcisi"},
+   {n:"Makina Alçısı",d:"Makine uygulamalı, pürüzsüz yüzey sunan alçı sıva.",u:"https://ulusalyapi.com/makina-alcisi"},
+   {n:"Saten Perdah Alçısı",d:"Boya öncesi ipeksi pürüzsüzlük sağlayan perdah alçısı.",u:"https://ulusalyapi.com/saten-perdah-alcisi"},
+   {n:"Kartonpiyer Alçısı",d:"Dekoratif kartonpiyer imalatı için yüksek mukavemetli alçı.",u:"https://ulusalyapi.com/kartonpiyer-alcisi"},
+   {n:"Konsantre Alçı",d:"Yüksek saflıkta konsantre alçı hammaddesi.",u:"https://ulusalyapi.com/Konsantre-alci"}]},
+  {t:"Alçı Plaka & Aksesuar",items:[
+   {n:"Standart Alçı Plaka",d:"Bölme duvar ve asma tavanlar için standart alçı levha.",u:"https://ulusalyapi.com/standart-alci-plaka"},
+   {n:"Yangına Dayanıklı Alçı Plaka",d:"Yangın dayanımı artırılmış özel alçı levha.",u:"https://ulusalyapi.com/yangina-dayanikli-alci-plaka"},
+   {n:"Suya Dayanıklı Alçı Plaka",d:"Islak hacimler için su emilimi azaltılmış alçı levha.",u:"https://ulusalyapi.com/suya-dayanikli-alci-plaka"},
+   {n:"Özel Levhalar",d:"Akustik, darbe dayanımlı ve özel amaçlı levha çözümleri.",u:"https://ulusalyapi.com/ozel-levhalar"},
+   {n:"Alçı Astarları",d:"Alçı yüzeylerde aderansı artıran astar grubu.",u:"https://ulusalyapi.com/alci-astarlari"},
+   {n:"Alçı Levha Aksesuarları",d:"Profil, vida, bant ve montaj aksesuarları.",u:"https://ulusalyapi.com/alci-levha-aksesuarlari"}]},
+  {t:"Kireç Grubu",items:[
+   {n:"Sönmüş İnşaat Kireci (CL 80-S)",d:"Harç ve sıvalarda işlenebilirlik sağlayan sönmüş kireç.",u:"https://ulusalyapi.com/sonmus-insaat-kireci-cl-80-s"},
+   {n:"Sönmüş Sanayi Kireci (CL 90-S)",d:"Endüstriyel prosesler için yüksek saflıkta sönmüş kireç.",u:"https://ulusalyapi.com/sonmus-sanayi-kireci-cl-90-s"},
+   {n:"Sönmemiş Kalsiyum Kireci (CL 80-Q)",d:"Yüksek reaktiviteli sönmemiş kalsiyum kireci.",u:"https://ulusalyapi.com/sonmemis-kalsiyum-kireci-cl-80-q"},
+   {n:"Tarım Kireci",d:"Toprak pH düzenlemesi için öğütülmüş tarım kireci.",u:"https://ulusalyapi.com/tarim-kireci"}]},
+  {t:"Çimento Esaslı Sıvalar",items:[
+   {n:"Makina Sıvası",d:"Makine ile hızlı uygulama, homojen yüzey.",u:"https://ulusalyapi.com/makina-sivasi"},
+   {n:"El Sıvası",d:"Elle uygulama için çimento esaslı sıva.",u:"https://ulusalyapi.com/el-sivasi"},
+   {n:"Hafif Makina Sıvası",d:"Hafif agregalı, verimi yüksek makina sıvası.",u:"https://ulusalyapi.com/hafif-makina-sivasi"},
+   {n:"İnce Perdah Sıvası",d:"İnce kat düzeltme ve perdah sıvası.",u:"https://ulusalyapi.com/ince-perdah-sivasi"},
+   {n:"Beyaz Çimentolu Makina Sıvası",d:"Beyaz çimento esaslı, aydınlık yüzeyli makina sıvası.",u:"https://ulusalyapi.com/beyaz-cimento-esasli-makina-sivasi"},
+   {n:"Beyaz Çimentolu El Sıvası",d:"Beyaz çimento esaslı, elle uygulanan sıva.",u:"https://ulusalyapi.com/beyaz-cimento-esasli-el-sivasi"},
+   {n:"Son Kat Sıva",d:"Dekoratif dokulu son kat kaplama sıvası.",u:"https://ulusalyapi.com/son-kat-siva"},
+   {n:"İnce Saten Macun",d:"Boya öncesi ince dokulu saten macun.",u:"https://ulusalyapi.com/ince-saten-macun"}]},
+  {t:"Yapıştırma & Derz Dolgu",items:[
+   {n:"Seramik Fayans Yapıştırıcı",d:"Standart seramik ve fayans yapıştırma harcı.",u:"https://ulusalyapi.com/seramik-fayans-yapistirici"},
+   {n:"Esnek Seramik Yapıştırıcısı",d:"Yerden ısıtma ve dış cephede esnek yapıştırıcı.",u:"https://ulusalyapi.com/esnek-seramik-fayans-yapistiricisi"},
+   {n:"Derz Dolgu",d:"Seramik derzleri için renkli dolgu harcı.",u:"https://ulusalyapi.com/derz-dolgu"},
+   {n:"Esnek Derz Dolgu",d:"Geniş ve hareketli derzler için esnek dolgu.",u:"https://ulusalyapi.com/esnek-derz-dolgu"},
+   {n:"Derz Dolgu Mastiği",d:"Derz bitişleri için mastik çözümü.",u:"https://ulusalyapi.com/derz-dolgu-mastigi"},
+   {n:"Gazbeton Yapıştırıcısı",d:"Gazbeton blok örümü için ince yataklı harç.",u:"https://ulusalyapi.com/gazbeton-yapistiricisi"},
+   {n:"Poliüretan Yapıştırma Macunu",d:"Güçlü ve esnek poliüretan yapıştırıcı.",u:"https://ulusalyapi.com/poliuretan-yapistirma-macunu"},
+   {n:"PVC Zemin Yapıştırıcısı",d:"PVC ve esnek zemin kaplama yapıştırıcısı.",u:"https://ulusalyapi.com/pvc-zemin-yapistiricisi"}]},
+  {t:"Isı Yalıtım Grubu",items:[
+   {n:"Isı Yalıtım Malzemeleri",d:"EPS, XPS ve taş yünü levha çözümleri.",u:"https://ulusalyapi.com/isi-yalitim-malzemeleri"},
+   {n:"Isı Yalıtım Yapıştırıcısı",d:"Yalıtım levhası yapıştırma harcı.",u:"https://ulusalyapi.com/isi-yalitim-yapistiricisi"},
+   {n:"Isı Yalıtım Sıvası",d:"Levha üzeri donatılı yalıtım sıvası.",u:"https://ulusalyapi.com/isi-yalitim-sivasi"},
+   {n:"Dekoratif Kaplama Sıvası",d:"Mantolama üzeri dekoratif son kat.",u:"https://ulusalyapi.com/dekoratif-kaplama-sivasi"}]},
+  {t:"Su Yalıtım Grubu",items:[
+   {n:"Tek Bileşenli Su Yalıtım Harcı",d:"Çimento esaslı, pratik su yalıtımı.",u:"https://ulusalyapi.com/cimento-esasli-tek-bilesenli-su-yalitim-harci"},
+   {n:"Çift Bileşenli Su Yalıtım Harcı",d:"Tam esnek, çift bileşenli su yalıtımı.",u:"https://ulusalyapi.com/cimento-esasli-cift-bilesenli-su-yalitim-harci"},
+   {n:"Kristalize Su Yalıtım Harcı",d:"Kılcal çatlakları kristalize sistemle kapatır.",u:"https://ulusalyapi.com/cimento-esasli-cift-bilesenli-kristalize-su-yalitim-harci"},
+   {n:"Poliüretan Su Yalıtımı",d:"UV dayanımlı likit poliüretan membran.",u:"https://ulusalyapi.com/poliuretan-esasli-tek-bilesenli-su-yalitim-malzemesi"}]},
+  {t:"Zemin Grubu",items:[
+   {n:"Hazır Şap",d:"Zemin tesviyesi için hazır çimento şapı.",u:"https://ulusalyapi.com/hazir-sap"},
+   {n:"Kendinden Yayılan Şap",d:"Kendiliğinden yayılan, mükemmel düzlük.",u:"https://ulusalyapi.com/kendinden-yayilan-sap"},
+   {n:"Alçı Bazlı Şap",d:"İç mekân için alçı esaslı şap.",u:"https://ulusalyapi.com/alci-bazli-sap"}]},
+  {t:"Diğer Harç ve Sistemler",items:[
+   {n:"Mastik Grubu",d:"Poliüretan ve hibrit mastik çözümleri.",u:"https://ulusalyapi.com/mastik-grubu"},
+   {n:"Endüstriyel Zemin Kaplamaları",d:"Epoksi ve poliüretan zemin sistemleri.",u:"https://ulusalyapi.com/endustriyel-zemin-kaplamalari"},
+   {n:"Beton Katkıları",d:"Akışkanlaştırıcı ve priz düzenleyici katkılar.",u:"https://ulusalyapi.com/beton-katkilari"},
+   {n:"Yapısal Güçlendirme",d:"Karbon fiber ve epoksi güçlendirme sistemleri.",u:"https://ulusalyapi.com/yapisal-guclendirme"},
+   {n:"Tamir ve Ankraj Harçları",d:"Yapısal tamir ve ankraj grout harçları.",u:"https://ulusalyapi.com/tamir-ve-ankraj-harclari"},
+   {n:"Örgü Harçları",d:"Duvar örümü için hazır harçlar.",u:"https://ulusalyapi.com/orgu-harclari"},
+   {n:"Dekorasyon-Restorasyon Harçları",d:"Tarihi doku ve dekoratif restorasyon harçları.",u:"https://ulusalyapi.com/dekorasyon-restorasyon-harclari"},
+   {n:"Tamamlayıcı Ürünler",d:"File, profil, astar ve yardımcı ürünler.",u:"https://ulusalyapi.com/tamamlayici-urunler"}]},
+  {t:"Paslanmaz Çelik & Metal",items:[
+   {n:"Paslanmaz Çelik",d:"Korozyona dayanıklı paslanmaz ürün gamı.",u:"https://ulusalyapi.com/paslanmaz-celik"},
+   {n:"Çelik / Sac / Boru",d:"Sac, profil ve boru çözümleri.",u:"https://ulusalyapi.com/celik-sac-boru"},
+   {n:"Demir",d:"Yapısal demir ürünleri.",u:"https://ulusalyapi.com/demir"}]},
+  {t:"Hazır Beton & Diğer",items:[
+   {n:"Hazır Beton",d:"Standartlara uygun üretilen taze hazır beton.",u:"https://ulusalyapi.com/hazir-beton"},
+   {n:"İnşaat Demiri",d:"Nervürlü inşaat demiri tedariki.",u:"https://ulusalyapi.com/insaat-demiri"},
+   {n:"Gazbeton",d:"Hafif ve yalıtımlı gazbeton blok.",u:"https://ulusalyapi.com/gazbeton"}]}]},
+ {name:"Kimyasal Hammaddeler",icon:"flask",site:"https://ulusalyapi.com",siteLabel:"ulusalyapi.com",
+  imgs:["Gorseller/kimyasal-hammaddeler-1.png","Gorseller/kimyasal-hammaddeler-2.png","Gorseller/kimyasal-hammaddeler-3.png"],
+  desc:"Harç ve beton performansını artıran endüstriyel katkı hammaddeleri.",
+  cats:[{t:null,items:[
+   {n:"Selüloz Eter",d:"Su tutma ve işlenebilirlik katkısı.",u:"https://ulusalyapi.com/seluloz-eter"},
+   {n:"Toz Polimer",d:"Aderans ve esneklik artırıcı polimer.",u:"https://ulusalyapi.com/toz-polimer"},
+   {n:"Çinko Stereat",d:"Su itici hidrofobik katkı.",u:"https://ulusalyapi.com/cinko-stereat"},
+   {n:"Kalsiyum Stereat",d:"Su iticilik ve topaklanma önleyici.",u:"https://ulusalyapi.com/kalsiyum-stereat"},
+   {n:"Elyaf (Cam / Polipropilen)",d:"Çatlak kontrolü için cam ve polipropilen elyaf.",u:"https://ulusalyapi.com/elyaf-cam-polipropilen"},
+   {n:"Kalsiyum Formiat",d:"Priz hızlandırıcı, erken dayanım katkısı.",u:"https://ulusalyapi.com/kalsiyum-formiat"},
+   {n:"Nişasta Eter",d:"Kıvam ve sarkma direnci düzenleyici.",u:"https://ulusalyapi.com/nisasta-eter"}]}]},
+ {name:"Perlit",icon:"sun",site:"https://www.ulusalperlit.com",siteLabel:"ulusalperlit.com",
+  imgs:["Gorseller/perlit-1.png","Gorseller/perlit-2.png","Gorseller/perlit-3.png"],
+  desc:"Perlit esaslı hafif ve yalıtımlı çözümler — ulusalperlit.com güvencesiyle.",
+  cats:[{t:null,items:[
+   {n:"Perlitli Dış Cephe Sıva Harcı",d:"Isı yalıtımına katkı sağlayan perlitli dış cephe sıvası.",u:"https://ulusalyapi.com/perlitli-dis-cephe-siva-harci"},
+   {n:"Perlitli İç Cephe Sıva Harcı",d:"Nefes alan, hafif perlitli iç cephe sıvası.",u:"https://ulusalyapi.com/perlitli-ic-cephe-siva-harci"},
+   {n:"Perlitli Yüzey Düzeltme Macunu",d:"Perlitli, hafif yüzey düzeltme macunu.",u:"https://ulusalyapi.com/perlitli-yuzey-duzeltme-macunu"},
+   {n:"Perlitli Dekoratif Sıva",d:"Perlitli dokulu dekoratif kaplama.",u:"https://ulusalyapi.com/perlitli-dekoratif-siva"},
+   {n:"Perlitli Hafif Şap",d:"Hafif ve yalıtım destekli perlitli şap.",u:"https://ulusalyapi.com/perlitli-hafif-sap"},
+   {n:"Tarım Perliti",d:"Toprak havalandırması için genleştirilmiş perlit.",u:"https://ulusalyapi.com/tarim-perliti"}]}]},
+ {name:"Teknoloji ve Yazılım",icon:"cpu",site:"https://ulusalyapi.com",siteLabel:"ulusalyapi.com",
+  imgs:["Gorseller/teknoloji-yazilim-1.png","Gorseller/teknoloji-yazilim-2.png","Gorseller/teknoloji-yazilim-3.png"],
+  desc:"Grubumuzun teknoloji ve yazılım alanındaki çözümleri. (Metinler temsilidir; gerçek hizmet başlıklarıyla güncellenecektir.)",
+  cats:[{t:null,items:[
+   {n:"Kurumsal Yazılım Çözümleri",d:"İş süreçlerine özel kurumsal yazılım geliştirme ve destek.",u:null},
+   {n:"E-Ticaret & B2B Altyapıları",d:"Toptan ve perakende satış kanalları için dijital altyapı.",u:null},
+   {n:"Entegrasyon & Otomasyon",d:"ERP, muhasebe ve lojistik sistemleri arasında veri entegrasyonu.",u:null},
+   {n:"Dijital Dönüşüm Danışmanlığı",d:"Süreç analizi ve dijitalleşme yol haritası danışmanlığı.",u:null}]}]}
+];
+
+const panelEl=document.getElementById('panel');
+let current=-1,visTimer=null;
+
+/* Vitrin yerleşimi: sol üstten sağ alta basamaklı kaskad; öndekiler daha yakın */
+const POS=[
+  {x:20,y:21,ry:7,z:0},
+  {x:40,y:41,ry:-6,z:34},
+  {x:60,y:61,ry:7,z:68},
+  {x:80,y:81,ry:-6,z:100}
+];
+const tiltEl=document.getElementById('tilt'),scene=document.getElementById('scene');
+const NODES=[];let hovered=-1,mx=0,my=0;
+function baseTf(p,px,py){
+  return `translate(-50%,-50%) translateX(${(px*p.z*.4).toFixed(1)}px) translateY(${(py*p.z*.4).toFixed(1)}px) rotateY(${p.ry}deg) translateZ(${p.z}px)`;
+}
+PRODUCTS.forEach((g,i)=>{
+  const p=POS[i];
+  const count=g.cats.reduce((s,c)=>s+c.items.length,0);
+  const nd=document.createElement('button');
+  nd.className='g-node';nd.type='button';nd.dataset.i=i;
+  nd.style.left=p.x+'%';nd.style.top=p.y+'%';
+  nd.style.transform=baseTf(p,0,0);
+  nd.innerHTML=`<span class="cimg"><img src="${g.imgs[0]}" alt=""></span><span class="ctx"><b>${g.name}</b><small>${count} alt başlık</small></span><span class="refl"></span>`;
+  nd.addEventListener('mouseenter',()=>{hovered=i;applyTf();select(i,false);});
+  nd.addEventListener('mouseleave',()=>{if(hovered===i){hovered=-1;applyTf();}});
+  nd.addEventListener('click',()=>select(i,true));
+  tiltEl.appendChild(nd);NODES.push(nd);
+});
+function applyTf(){
+  NODES.forEach((nd,i)=>{
+    if(i===hovered){
+      nd.style.transform=`translate(-50%,-50%) rotateY(0deg) translateZ(150px) scale(1.05)`;
+    }else{
+      nd.style.transform=baseTf(POS[i],mx,my);
+    }
+  });
+}
+scene.addEventListener('mousemove',e=>{
+  const r=scene.getBoundingClientRect();
+  mx=(e.clientX-r.left)/r.width-.5;my=(e.clientY-r.top)/r.height-.5;
+  applyTf();
+});
+scene.addEventListener('mouseleave',()=>{mx=0;my=0;hovered=-1;applyTf();});
+
+function select(i,fromClick){
+  if(current===i){
+    if(fromClick&&matchMedia('(max-width:980px)').matches)panelEl.scrollIntoView({behavior:'smooth',block:'nearest'});
+    return;
+  }
+  current=i;
+  document.querySelectorAll('.g-node').forEach(n=>n.classList.toggle('active',+n.dataset.i===i));
+  renderPanel(PRODUCTS[i]);
+  panelEl.classList.remove('panel-fade');void panelEl.offsetWidth;panelEl.classList.add('panel-fade');
+  startVisual();
+  if(fromClick&&matchMedia('(max-width:980px)').matches)panelEl.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function itemHTML(it){
+  const link=it.u?`<br><a href="${it.u}" target="_blank" rel="noopener">Ürün sayfası
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>`:'';
+  return `<div class="sub-item">
+    <button type="button"><span class="dot"></span>${it.n}
+      <svg class="chev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="si-body"><div class="si-in">${it.d}${link}</div></div>
+  </div>`;
+}
+function renderPanel(g){
+  const count=g.cats.reduce((s,c)=>s+c.items.length,0);
+  panelEl.innerHTML=`
+    <div class="panel-visual">${g.imgs.map((s,k)=>`<img src="${s}" alt="" class="${k===0?'on':''}">`).join('')}</div>
+    <div class="panel-head"><span class="p-ic">${ICONS[g.icon]}</span>
+      <div><h3>${g.name}</h3><div class="p-count">${count} alt başlık · detay için tıklayın</div></div>
+    </div>
+    <div class="panel-desc">${g.desc}</div>
+    <div class="panel-body">${g.cats.map(c=>(c.t?`<div class="sub-cat">${c.t}</div>`:'')+c.items.map(itemHTML).join('')).join('')}</div>
+    <div class="panel-foot">
+      <a class="visit-btn" href="${g.site}" target="_blank" rel="noopener">Sitemizi Ziyaret Et — ${g.siteLabel}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+    </div>`;
+}
+function startVisual(){
+  clearInterval(visTimer);
+  const imgs=[...panelEl.querySelectorAll('.panel-visual img')];
+  if(imgs.length<2||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  let v=0;
+  visTimer=setInterval(()=>{
+    imgs[v].classList.remove('on');
+    v=(v+1)%imgs.length;
+    imgs[v].classList.add('on');
+  },3600);
+}
+panelEl.addEventListener('click',e=>{
+  const btn=e.target.closest('.sub-item>button');
+  if(!btn)return;
+  btn.parentElement.classList.toggle('open');
+});
+select(0,false);
+</script>
+</body>
+</html>
