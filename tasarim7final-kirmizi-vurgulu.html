@@ -77,50 +77,31 @@ button{font-family:inherit}
 .ph-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .veil{position:absolute;inset:0;z-index:2;background:linear-gradient(110deg,var(--cta-overlay1),var(--cta-overlay2))}
 
-/* ---------- Sol sabit menü (Tasarım 5/6 yapısı) ---------- */
-aside{
-  position:fixed;top:0;left:0;bottom:0;width:var(--sidebar);z-index:900;
-  display:flex;flex-direction:column;
-  background:var(--surface);border-right:1px solid var(--line);
-  padding:34px 30px;
-}
-.s-logo{display:flex;align-items:center}
-.s-logo img{width:100%;max-width:172px;height:auto;display:block}
-.s-nav{margin-top:52px;display:flex;flex-direction:column;gap:2px;flex:1}
-.s-nav a{
-  position:relative;display:flex;align-items:center;gap:14px;
-  padding:13px 2px;font-size:13.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
-  border-bottom:1px solid transparent;transition:color .3s,padding-left .35s;
-}
-.s-nav a i{font-style:normal;font-size:11px;font-weight:800;color:#97a9c6;transition:color .3s}
-.s-nav a::after{
-  content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;
-  background:linear-gradient(90deg,var(--accent) 0,transparent 70%);
-  transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.7,.3,1);
-}
-.s-nav a:hover,.s-nav a.active{color:var(--text);padding-left:8px}
-.s-nav a:hover i,.s-nav a.active i{color:var(--red)}
-.s-nav a:hover::after,.s-nav a.active::after{transform:scaleX(1)}
-.s-foot{font-size:12.5px;color:var(--muted);display:grid;gap:6px}
-.s-foot a{transition:color .3s}
-.s-foot a:hover{color:var(--accent-ink)}
-.s-foot .cta{
-  margin-top:14px;display:flex;align-items:center;justify-content:center;gap:9px;
-  padding:13px 18px;border:1px solid rgba(43,98,196,.4);border-radius:99px;
-  font-size:12.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-ink);
-  transition:background .35s,color .35s,border-color .35s;
-}
-.s-foot .cta:hover{background:var(--grad);color:var(--on-accent);border-color:transparent}
-
-/* Mobil üst bar */
-.topbar{
-  display:none;position:fixed;top:0;left:0;right:0;z-index:950;
-  align-items:center;justify-content:space-between;
-  padding:12px 20px;background:rgba(245,248,252,.94);backdrop-filter:blur(14px);
+/* ---------- Üst menü (header) ---------- */
+.mainnav{
+  position:sticky;top:0;z-index:900;
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  padding:13px clamp(20px,5vw,64px);
+  background:rgba(245,248,252,.9);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid var(--line);
 }
-.topbar .s-logo img{max-width:128px}
-#hamburger{display:none;background:none;border:0;cursor:pointer;z-index:990;width:40px;height:40px;position:relative}
+.n-logo{display:flex;align-items:center;flex:none}
+.n-logo img{height:48px;width:auto;display:block}
+.nav-links{display:flex;gap:4px;list-style:none;align-items:center}
+.nav-links a{
+  padding:9px 16px;font-size:14px;font-weight:600;color:var(--muted);
+  border-radius:99px;transition:color .3s,background .3s;white-space:nowrap;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--text);background:rgba(22,36,60,.06)}
+.nav-cta{
+  flex:none;padding:12px 26px;border-radius:99px;font-size:14px;font-weight:700;color:#fff;
+  background:linear-gradient(96deg,#e0454b 0%,#c11f26 100%);
+  box-shadow:0 8px 24px rgba(208,36,43,.3);
+  transition:transform .3s,box-shadow .3s;white-space:nowrap;
+}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(208,36,43,.42)}
+#hamburger{display:none;background:none;border:0;cursor:pointer;z-index:990;width:40px;height:40px;position:relative;flex:none}
 #hamburger i{position:absolute;left:8px;right:8px;height:2px;background:var(--text);border-radius:2px;transition:.35s}
 #hamburger i:nth-child(1){top:13px}#hamburger i:nth-child(2){top:20px}#hamburger i:nth-child(3){top:27px}
 #hamburger.open i:nth-child(1){top:20px;transform:rotate(45deg)}
@@ -128,7 +109,7 @@ aside{
 #hamburger.open i:nth-child(3){top:20px;transform:rotate(-45deg)}
 
 /* ---------- İçerik düzeni ---------- */
-main{margin-left:var(--sidebar)}
+main{position:relative}
 section{position:relative;padding:clamp(76px,10vh,120px) clamp(24px,5vw,72px)}
 .wrap{max-width:1160px;margin:0 auto}
 .sec-tag{
@@ -212,11 +193,12 @@ section{position:relative;padding:clamp(76px,10vh,120px) clamp(24px,5vw,72px)}
 @keyframes panelin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
 /* ---------- İLK SAYFA: Fütüristik Ürün Evreni (Revize 5) ---------- */
-#urunler{min-height:100svh;display:flex;align-items:center;padding-top:clamp(60px,8vh,90px)}
+#urunler{min-height:calc(100svh - 78px);display:flex;align-items:center;padding-top:clamp(40px,6vh,70px)}
 #urunler .wrap{width:100%}
 #urunler .head{text-align:center}
 #urunler .head .sec-tag{justify-content:center}
-.hub{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(26px,3.5vw,48px);align-items:center;margin-top:40px}
+/* sağ panel hafif dar, sol küre alanı geniş */
+.hub{display:grid;grid-template-columns:1.16fr .84fr;gap:clamp(22px,3vw,40px);align-items:center;margin-top:40px}
 .scene{position:relative;perspective:1300px}
 /* en arka plan: dünya haritası (ulusalyapi.com ile aynı görsel) */
 .mapbg{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;z-index:0;overflow:hidden}
@@ -229,7 +211,7 @@ section{position:relative;padding:clamp(76px,10vh,120px) clamp(24px,5vw,72px)}
 }
 .scene:hover .glow{opacity:1}
 .tilt{
-  position:relative;aspect-ratio:1;max-width:560px;width:100%;margin:0 auto;
+  position:relative;aspect-ratio:1;max-width:620px;width:100%;margin:0 auto;
   transform-style:preserve-3d;transition:transform .25s ease-out;user-select:none;
 }
 .links{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
@@ -237,37 +219,17 @@ section{position:relative;padding:clamp(76px,10vh,120px) clamp(24px,5vw,72px)}
 .links line.hot{stroke:rgba(43,98,196,.6)}
 .links .sig{fill:var(--accent-ink)}
 .links .sig2{fill:var(--red)}
+/* logo: çember yok — doğrudan dünya haritasının üzerinde durur */
 .core{
-  position:absolute;left:50%;top:50%;width:28%;aspect-ratio:1;z-index:4;
-  transform:translate(-50%,-50%) translateZ(46px);transform-style:preserve-3d;
-  border-radius:50%;background:var(--surface);display:grid;place-items:center;
-  box-shadow:0 30px 60px rgba(22,36,60,.26),0 0 0 1px var(--line),0 0 40px rgba(75,132,224,.25);
+  position:absolute;left:50%;top:50%;width:34%;z-index:4;
+  transform:translate(-50%,-50%) translateZ(46px);
+  display:grid;place-items:center;pointer-events:none;
   animation:float 5.5s ease-in-out infinite;
 }
-@keyframes float{50%{transform:translate(-50%,-53%) translateZ(46px)}}
-.core img{width:70%}
-.holo{position:absolute;border-radius:50%;pointer-events:none}
-.h1{
-  inset:-14%;
-  background:conic-gradient(from 0deg,transparent 0 68%,rgba(75,132,224,.85) 86%,transparent 100%);
-  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));
-          mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));
-  animation:spin 5.5s linear infinite;
-}
-.h2{
-  inset:-26%;
-  background:conic-gradient(from 180deg,transparent 0 78%,rgba(208,36,43,.75) 92%,transparent 100%);
-  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px));
-          mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px));
-  animation:spin 9s linear infinite reverse;
-}
-.h3{inset:-26%;border:1px solid rgba(43,98,196,.1)}
-@keyframes spin{to{transform:rotate(360deg)}}
-.core.kick{animation:kick .5s cubic-bezier(.2,.7,.3,1),float 5.5s .5s ease-in-out infinite}
-@keyframes kick{
-  0%{box-shadow:0 30px 60px rgba(22,36,60,.26),0 0 0 0 rgba(75,132,224,.5)}
-  100%{box-shadow:0 30px 60px rgba(22,36,60,.26),0 0 0 26px rgba(75,132,224,0)}
-}
+@keyframes float{50%{transform:translate(-50%,-54%) translateZ(46px)}}
+.core img{width:100%;filter:drop-shadow(0 0 26px rgba(245,248,252,.95)) drop-shadow(0 14px 24px rgba(22,36,60,.28))}
+.core.kick img{animation:ikick .5s cubic-bezier(.2,.7,.3,1)}
+@keyframes ikick{50%{transform:scale(1.06)}}
 .g-node{
   position:absolute;width:40%;transform:translate(-50%,-50%) translateZ(12px);z-index:5;
   border:1px solid rgba(255,255,255,.85);border-radius:14px;overflow:visible;padding:0;
@@ -510,14 +472,20 @@ footer{border-top:1px solid var(--line);padding:66px clamp(24px,5vw,72px) 32px;b
 
 /* ---------- Responsive ---------- */
 @media(max-width:1080px){
-  aside{display:none}
-  main{margin-left:0}
-  .topbar{display:flex}
-  #hamburger{display:block}
-  body.menu-open aside{display:flex;width:100%;z-index:970;padding-top:90px}
   .brand-grid{grid-template-columns:repeat(3,1fr)}
   .gal-grid{grid-template-columns:repeat(2,1fr)}
   .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:960px){
+  .nav-links{
+    position:fixed;inset:0;z-index:940;flex-direction:column;justify-content:center;align-items:center;gap:10px;
+    background:rgba(245,248,252,.97);backdrop-filter:blur(20px);
+    opacity:0;visibility:hidden;transition:.4s;
+  }
+  .nav-links.open{opacity:1;visibility:visible}
+  .nav-links a{font-size:20px}
+  .nav-cta{display:none}
+  #hamburger{display:block}
 }
 @media(max-width:980px){
   .hub{grid-template-columns:1fr}
@@ -555,9 +523,6 @@ footer{border-top:1px solid var(--line);padding:66px clamp(24px,5vw,72px) 32px;b
 .serif{color:var(--red)}
 .cta h2 .serif{color:#ffa3a7}
 .sec-tag{color:var(--red)}
-.s-nav a::after{background:linear-gradient(90deg,var(--red) 0,transparent 70%)}
-.s-foot .cta{border-color:rgba(208,36,43,.45);color:var(--red)}
-.s-foot .cta:hover{background:var(--gradr);color:#fff;border-color:transparent}
 .btn-main{background:var(--gradr);box-shadow:0 10px 30px rgba(208,36,43,.3)}
 .btn-main:hover{box-shadow:0 18px 40px rgba(208,36,43,.42)}
 .about-exp{background:var(--gradr);box-shadow:0 18px 40px rgba(208,36,43,.4)}
@@ -586,9 +551,6 @@ footer{border-top:1px solid var(--line);padding:66px clamp(24px,5vw,72px) 32px;b
 .form-card::before{background:linear-gradient(90deg,#e0454b,#c11f26 60%,#2b62c4)}
 .c-row .ic{border-color:rgba(208,36,43,.35);color:var(--red)}
 /* fütüristik sahne */
-.h1{background:conic-gradient(from 0deg,transparent 0 68%,rgba(208,36,43,.85) 86%,transparent 100%)}
-.h2{background:conic-gradient(from 180deg,transparent 0 78%,rgba(75,132,224,.75) 92%,transparent 100%)}
-.core{box-shadow:0 30px 60px rgba(22,36,60,.26),0 0 0 1px var(--line),0 0 40px rgba(208,36,43,.22)}
 .glow{background:radial-gradient(circle,rgba(208,36,43,.13),transparent 65%)}
 .links line.hot{stroke:rgba(208,36,43,.6)}
 .links .sig{fill:var(--red)}
@@ -602,29 +564,20 @@ footer{border-top:1px solid var(--line);padding:66px clamp(24px,5vw,72px) 32px;b
 </head>
 <body>
 
-<!-- Mobil üst bar -->
-<div class="topbar">
-  <a class="s-logo" href="#urunler"><img src="Gorseller/logo.png" alt="Ulusal Yapı"></a>
+<!-- Üst menü -->
+<nav class="mainnav">
+  <a class="n-logo" href="#urunler"><img src="Gorseller/logo.png" alt="Ulusal Yapı"></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#urunler" class="active">Ürünler</a></li>
+    <li><a href="#kurumsal">Kurumsal</a></li>
+    <li><a href="#politikalar">Politikalar</a></li>
+    <li><a href="#galeri">Galeri</a></li>
+    <li><a href="#global">Global Ağ</a></li>
+    <li><a href="#iletisim">İletişim</a></li>
+  </ul>
+  <a class="nav-cta" href="#iletisim">Teklif Alın</a>
   <button id="hamburger" aria-label="Menü"><i></i><i></i><i></i></button>
-</div>
-
-<!-- Sol sabit menü -->
-<aside id="sidebar">
-  <a class="s-logo" href="#urunler"><img src="Gorseller/logo.png" alt="Ulusal Yapı"></a>
-  <nav class="s-nav" id="sNav">
-    <a href="#urunler" class="active"><i>01</i> Ürünler</a>
-    <a href="#kurumsal"><i>02</i> Kurumsal</a>
-    <a href="#politikalar"><i>03</i> Politikalar</a>
-    <a href="#galeri"><i>04</i> Galeri</a>
-    <a href="#global"><i>05</i> Global Ağ</a>
-    <a href="#iletisim"><i>06</i> İletişim</a>
-  </nav>
-  <div class="s-foot">
-    <a href="tel:+902164558663">+90 216 455 86 63</a>
-    <a href="mailto:info@ulusalyapi.com">info@ulusalyapi.com</a>
-    <a class="cta" href="#iletisim">Teklif Alın</a>
-  </div>
-</aside>
+</nav>
 
 <main>
 
@@ -643,7 +596,6 @@ footer{border-top:1px solid var(--line);padding:66px clamp(24px,5vw,72px) 32px;b
         <div class="tilt" id="tilt">
           <svg class="links" id="links" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
           <div class="core" id="core">
-            <span class="holo h1"></span><span class="holo h2"></span><span class="holo h3"></span>
             <img src="Gorseller/logo.png" alt="Ulusal Yapı">
           </div>
         </div>
@@ -941,14 +893,14 @@ addEventListener('scroll',onScroll,{passive:true});onScroll();
 toTop.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
 
 // Mobil menü
-const burger=document.getElementById('hamburger');
+const burger=document.getElementById('hamburger'),navLinks=document.getElementById('navLinks');
 burger.addEventListener('click',()=>{
   burger.classList.toggle('open');
-  document.body.classList.toggle('menu-open');
+  navLinks.classList.toggle('open');
 });
-document.querySelectorAll('.s-nav a,.s-foot .cta').forEach(a=>a.addEventListener('click',()=>{
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
   burger.classList.remove('open');
-  document.body.classList.remove('menu-open');
+  navLinks.classList.remove('open');
 }));
 
 // Reveal on scroll
@@ -962,7 +914,7 @@ const secs=document.querySelectorAll('section');
 const nio=new IntersectionObserver(es=>es.forEach(e=>{
   if(!e.isIntersecting)return;
   const id=e.target.id;
-  document.querySelectorAll('.s-nav a').forEach(a=>{
+  document.querySelectorAll('.nav-links a').forEach(a=>{
     a.classList.toggle('active',a.getAttribute('href')==='#'+id);
   });
 }),{rootMargin:'-45% 0px -50% 0px'});
@@ -1109,9 +1061,11 @@ const tiltEl=document.getElementById('tilt'),scene=document.getElementById('scen
       glowEl=document.getElementById('glow');
 const SVGNS='http://www.w3.org/2000/svg';
 const LINES=[];
+/* Konumlar: sol ikili sola, sağ ikili sağa açık (dip dibe durmasın);
+   Perlit SOLDA, Teknoloji ve Yazılım SAĞDA */
+const POS=[{x:13,y:20},{x:87,y:20},{x:13,y:80},{x:87,y:80}];
 PRODUCTS.forEach((g,i)=>{
-  const ang=(i*90+225)*Math.PI/180,R=46;
-  const x=50+R*Math.cos(ang),y=50+R*Math.sin(ang);
+  const x=POS[i].x,y=POS[i].y;
   const ln=document.createElementNS(SVGNS,'line');
   ln.setAttribute('x1',50);ln.setAttribute('y1',50);ln.setAttribute('x2',x);ln.setAttribute('y2',y);
   ln.setAttribute('vector-effect','non-scaling-stroke');
